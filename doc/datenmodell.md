@@ -1,10 +1,10 @@
-Player(Id, Name, Background, Class, SituationSave, Active, SituationsSolvedCount)
+Player(Id, Name, Background, Class, StorySave, isActive, SituationsCounter)
 
 Situation(Id, Name, Description, isEnding)
 
 Option(Id, Name, Description)
 
-Storytelling(Id, S_Id, O_Id, next_S_Id)
+Storytelling(Id, Situation, Option, next_Situation)
 
 PlayerBackgroundOption(Id, Name, Description)
 
