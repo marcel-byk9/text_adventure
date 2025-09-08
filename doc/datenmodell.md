@@ -1,11 +1,11 @@
-PlayerBackgroundOption(Id, Name, Description)
-
-PlayerClassOption(Id, Name, Description)
-
-Player(Id, Name, Background, Class, SituationSave, Active)
+Player(Id, Name, Background, Class, SituationSave, Active, SituationsSolvedCount)
 
 Situation(Id, Name, Description, isEnding)
 
+Option(Id, Name, Description)
+
 Storytelling(Id, S_Id, O_Id, next_S_Id)
 
-Option(Id, Name, Description)
+PlayerBackgroundOption(Id, Name, Description)
+
+PlayerClassOption(Id, Name, Description)
