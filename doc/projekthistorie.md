@@ -27,3 +27,4 @@
 
 - Überarbeiten und erweitern von Lasten- und Pflichtenheft
 - Erstellen der initialen Projekthistorie
+- Skizzenhafte Konzeption eines Spielszenarios
