@@ -1,31 +1,15 @@
 package game.text_adventure.dto;
 
 import lombok.Data;
-import jakarta.persistence.*;
+import java.util.UUID;
 
 @Data
-@Entity
-@Table(name = "Player")
 public class Player {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "Id")
-    private int id;
-    @Column(name = "Name")
+    private UUID id;
     private String name;
-    @Column(name = "Background")
     private String background;
-    @Column(name = "Class")
     private String playerClass;
-    @Column(name = "StorySave")
     private String storySave;
-    @Column(name = "isActive")
     private Boolean isActive;
-    @Column(name = "SituationsCounter")
-    private Boolean situationsCounter;
-
-
-
-
-
+    private Integer situationsCounter;
 }

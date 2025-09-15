@@ -1,7 +1,10 @@
 package game.text_adventure.repository;
 
 import game.text_adventure.dto.Option;
+import game.text_adventure.dto.Storytelling;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface StorytellingRepository extends JpaRepository<Option, Integer> {
+@Repository
+public interface StorytellingRepository extends JpaRepository<Storytelling, Integer> {
 }

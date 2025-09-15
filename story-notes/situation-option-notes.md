@@ -153,7 +153,7 @@ Du rennst soweit du kannst. Da du den Wald gut kennst, findest du eine Senke, in
 Das Ergebnis eines harten Arbeitstages liegt allerdings noch auf der Straße.
 Kehrst du zum Pfad zurück, um deinen Korb zu holen oder kehrst du direkt in dein Dorf zurück?
 
-1. Du gehst zügig zurück zum Pfad. 
+1. Du gehst zügig zurück zum Pfad.
 2. Niedergeschlagen gehst du zurück in dein Dorf.
 
 [Option 1: Du gehst zügig zurück zum Pfad. ]
@@ -161,8 +161,8 @@ Dort ist alles still. Kein Anzeichen von nahen Soldaten ist zu sehen.
 Jedoch musst du feststellen, dass dein Korb einem Flammenstrahl zum Opfer gefallen ist.
 
 [Wenn Kräuter]
-Der Korb ist zusammen mit den meisten Kräutern verbrannt. 
-In der mitte des Aschehaufens kannst du jedoch ein paar vereinzelte Pflanzen finden, 
+Der Korb ist zusammen mit den meisten Kräutern verbrannt.
+In der mitte des Aschehaufens kannst du jedoch ein paar vereinzelte Pflanzen finden,
 die zwar angesengt, aber noch zu gebrauchen sind.
 
 [Wenn Holzkohle]
