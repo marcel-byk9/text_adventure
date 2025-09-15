@@ -1,20 +1,12 @@
 package game.text_adventure.dto;
 
-import jakarta.persistence.*;
 import lombok.Data;
+import java.util.UUID;
 
 @Data
-@Entity
-@Table(name = "Option")
 public class Option {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "Id")
-    private int id;
-
-    @Column(name = "Name")
+    private UUID id;
     private String name;
-
-    @Column(name = "Description")
     private String description;
+    private Situation situation;
 }

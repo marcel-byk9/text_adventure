@@ -25,9 +25,8 @@ CREATE TABLE IF NOT EXISTS Option(
 
 CREATE TABLE IF NOT EXISTS Situation(
     Id TEXT PRIMARY KEY,
-    Name TEXT,
     Description TEXT,
-    isEnding BOOLEAN
+    IsEnding BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS Player(
