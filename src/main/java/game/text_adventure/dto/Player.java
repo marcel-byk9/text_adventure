@@ -17,15 +17,10 @@ public class Player {
     private String background;
     @Column(name = "Class")
     private String playerClass;
-    @Column(name = "StorySave")
+    @Column(name = "Story_Save")
     private String storySave;
-    @Column(name = "isActive")
+    @Column(name = "IsActive")
     private Boolean isActive;
     @Column(name = "SituationsCounter")
-    private Boolean situationsCounter;
-
-
-
-
-
+    private Integer situationsCounter;
 }
