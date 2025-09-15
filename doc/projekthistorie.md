@@ -28,3 +28,11 @@
 - Überarbeiten und erweitern von Lasten- und Pflichtenheft
 - Erstellen der initialen Projekthistorie
 - Skizzenhafte Konzeption eines Spielszenarios
+
+---
+
+### 15.09.2025
+
+##### Martin
+- Erstellen der Textbausteine im Situation/Option-Format
+- 
