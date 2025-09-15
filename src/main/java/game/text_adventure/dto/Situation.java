@@ -15,6 +15,6 @@ public class Situation {
     private String name;
     @Column(name = "Description")
     private String description;
-    @Column(name = "isEnding")
+    @Column(name = "IsEnding")
     private Boolean isEnding;
 }

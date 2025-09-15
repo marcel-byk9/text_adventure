@@ -15,6 +15,6 @@ public class Storytelling {
     private int situation;
     @Column(name = "Option")
     private int option;
-    @Column(name = "next_Situation")
+    @Column(name = "Next_Situation")
     private int nextSituation;
 }
