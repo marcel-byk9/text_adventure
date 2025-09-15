@@ -1,6 +1,6 @@
 Player(Id, Name, Background, Class, Story_Save, IsActive, SituationsCounter)
 
-Situation(Id, Name, Description, IsEnding)
+Situation(Id, Description, IsEnding)
 
 Option(Id, Name, Description)
 

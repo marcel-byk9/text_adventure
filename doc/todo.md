@@ -1,5 +1,3 @@
-methode run create new run
-
 methode get Situation by Id
 
 methode get option for situation 

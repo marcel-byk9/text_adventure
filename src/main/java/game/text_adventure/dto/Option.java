@@ -17,4 +17,8 @@ public class Option {
 
     @Column(name = "Description")
     private String description;
+
+    @ManyToOne()
+    @JoinColumn(name = "Id")
+    private Situation situation;
 }
