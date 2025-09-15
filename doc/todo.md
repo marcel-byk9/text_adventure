@@ -1,0 +1,11 @@
+methode get all runs
+
+methode run create new run
+
+methode get Situation by Id
+
+methode get option for situation 
+
+methode void run update 
+
+eventuell activiren und deaktiviren
