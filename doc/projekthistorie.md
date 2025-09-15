@@ -35,4 +35,7 @@
 
 ##### Martin
 - Erstellen der Textbausteine im Situation/Option-Format
-- 
+- Implementieren der Main- und TextAdventure Klassen
+
+##### Luca und Martin
+- Abstimmen der Datenbankstruktur mit dem Story-Konzept
