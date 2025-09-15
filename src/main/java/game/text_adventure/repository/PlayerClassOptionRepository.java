@@ -1,7 +1,10 @@
 package game.text_adventure.repository;
 
 import game.text_adventure.dto.Option;
+import game.text_adventure.dto.PlayerClassOption;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PlayerClassOptionRepository extends JpaRepository<Option, Integer> {
+@Repository
+public interface PlayerClassOptionRepository extends JpaRepository<PlayerClassOption, Integer> {
 }
