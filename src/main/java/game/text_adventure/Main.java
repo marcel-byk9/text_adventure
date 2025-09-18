@@ -4,7 +4,10 @@ import game.text_adventure.application.TextAdventure;
 
 public class Main {
     public static void main(String[] args) {
-        TextAdventure game = new TextAdventure();
+
+        // TODO instantiate service classes
+
+        TextAdventure game = new TextAdventure(playerService, situationService);
         game.run();
     }
 }
