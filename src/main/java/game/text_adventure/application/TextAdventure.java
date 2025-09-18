@@ -81,7 +81,7 @@ public class TextAdventure {
         System.out.println("1. Test\n2. Test2\n3. Test3\n");
         String background = getBackgroundInput();
 
-        UUId startingSituation = getSituationIdByCharacterOptions();
+        UUID startingSituation = getStartingSituationId();
 
         // TODO adapt to correct service implementation
         Player player = playerService.createNewPlayerRun(name, playerClass, background, startingSituation);
@@ -102,7 +102,7 @@ public class TextAdventure {
             }
 
             for (int i = 0; i < options.size(); i++) {
-                System.out.println("%d. %s\n", i + 1, options.get(i).getText());
+                System.out.println("%d. %s\n", i + 1, options.get(i).getName());
             }
 
             int choice = getValidChoiceInput(options.size());
@@ -111,7 +111,7 @@ public class TextAdventure {
             player.setStorySave(nextId.toString());
             player.setSituationsCounter(player.getSituationsCounter() + 1);
 
-            PlayerService.save(player);
+            playerService.save(player);
 
             Situation nextSituation = situationService.getSituationById(nextId);
             if (Boolean.TRUE.equals(nextSituation.getIsEnding())) {
@@ -165,7 +165,7 @@ public class TextAdventure {
 
     private UUID getStartingSituationId() {
         // TODO replace with logic
-        return UUID.fromString("|lf|jf||f|ff|");
+        return UUID.fromString("00000000-0000-0000-0000-000000000001");
     }
 
     private int getValidChoiceInput(int maxOptions) {

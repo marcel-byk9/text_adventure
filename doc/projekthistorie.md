@@ -39,3 +39,10 @@
 
 ##### Luca und Martin
 - Abstimmen der Datenbankstruktur mit dem Story-Konzept
+
+---
+
+### 18.09.2025
+
+##### Martin
+- Weiterentwicklung der Logik in TextAdventure
