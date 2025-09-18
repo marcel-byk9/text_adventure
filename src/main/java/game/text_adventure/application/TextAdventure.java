@@ -91,10 +91,10 @@ public class TextAdventure {
     private void startStoryLoop(Player player) {
         while (true) {
             UUID currentId = UUID.fromString(player.getStorySave());
-            Situation current = situationService.getSituationById(currentId);
-            List<Option> options = current.getOptions();
+            Situation currentSituation = situationService.getSituationById(currentId);
+            List<Option> options = currentSituation.getOptions();
 
-            System.out.println("\n" + current.getDescription());
+            System.out.println("\n" + currentSituation.getDescription());
 
             // TODO find better option to resolve running into not options being available
             if (options.isEmpty()) {
