@@ -3,15 +3,9 @@ package game.text_adventure.service;
 import game.text_adventure.dto.Player;
 import game.text_adventure.exception.PlayerSaveException;
 import game.text_adventure.repository.PlayerRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
-@Service
-@RequiredArgsConstructor
 public class PlayerService {
-    private PlayerRepository playerRepository;
+    private final PlayerRepository playerRepository = new PlayerRepository();
 
     public Player createNewPlayerRun(String playerName, String playerClass, String playerBackground, String startingSituation) {
         Player player = new Player();
