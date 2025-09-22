@@ -20,9 +20,9 @@ public class TextAdventure {
     private final PlayerService playerService;
     private final SituationService situationService;
 
-    public TextAdventure(PlayerService playerService, SituationService situationService) {
-        this.playerService = playerService;
-        this.situationService = situationService;
+    public TextAdventure() {
+        this.playerService = new PlayerService();
+        this.situationService = new SituationService();
     }
 
     /**
@@ -90,7 +90,7 @@ public class TextAdventure {
         }
 
         for (int i = 0; i < activePlayers.size(); i++) {
-            System.out.println("%d. %s\n", i + 1, activePlayers.get(i).getName());
+            System.out.format("%d. %s\n", i + 1, activePlayers.get(i).getName());
         }
 
         System.out.println("\nWas möchtest du tun?");

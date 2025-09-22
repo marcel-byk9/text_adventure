@@ -4,6 +4,8 @@ import game.text_adventure.dto.Player;
 import game.text_adventure.exception.PlayerSaveException;
 import game.text_adventure.repository.PlayerRepository;
 
+import java.util.List;
+
 public class PlayerService {
     private final PlayerRepository playerRepository = new PlayerRepository();
 
@@ -19,6 +21,10 @@ public class PlayerService {
             return player;
         }
         throw new PlayerSaveException("Unable to create new player " + playerName);
+    }
+
+    public List<Player> getAllActivePlayers() {
+        return playerRepository.findAllByIsActiveTrue();
     }
 
     public Player setPlayerActiveStatus(Player player, boolean active) {
