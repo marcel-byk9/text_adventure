@@ -20,4 +20,6 @@ eventuell aktivieren und deaktivieren
 - UUID getNextSituationId()
 
 ##### Playerservice
-- void save()
+- void deletePlayer(Player player)
+- (void save())
+
