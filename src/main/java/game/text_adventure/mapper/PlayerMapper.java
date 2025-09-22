@@ -1,30 +1,43 @@
 package game.text_adventure.mapper;
 
 import game.text_adventure.dto.Player;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 public final class PlayerMapper {
-    public static Player mapPlayer(ResultSet rs) throws SQLException {
-        Player player = new Player();
-        player.setId(UUID.fromString(rs.getString("Id")));
-        player.setName(rs.getString("Name"));
-        player.setBackground(rs.getString("Background"));
-        player.setPlayerClass(rs.getString("PlayerClass"));
-        player.setStorySave(rs.getString("Story_Save"));
-        player.setIsActive(rs.getBoolean("IsActive"));
-        player.setSituationsCounter(rs.getInt("SituationsCounter"));
-        return player;
+    public static Optional<Player> map(ResultSet rs) {
+        try {
+            Player player = new Player();
+            player.setId(UUID.fromString(rs.getString("Id")));
+            player.setName(rs.getString("Name"));
+            player.setBackground(rs.getString("Background"));
+            player.setPlayerClass(rs.getString("PlayerClass"));
+            player.setStorySave(rs.getString("Story_Save"));
+            player.setIsActive(rs.getBoolean("IsActive"));
+            player.setSituationsCounter(rs.getInt("SituationsCounter"));
+            return Optional.of(player);
+        } catch (SQLException sqle) {
+            log.debug(sqle.getMessage(), sqle);
+        }
+        return Optional.empty();
     }
 
-    public static List<Player> mapPlayers(ResultSet rs) throws SQLException {
+    public static List<Player> mapMultiple(ResultSet rs) {
         List<Player> players = new ArrayList<>();
-        while (rs.next()) {
-            players.add(mapPlayer(rs));
+        try {
+            while (rs.next()) {
+                Optional<Player> p = map(rs);
+                p.ifPresent(players::add);
+            }
+        } catch (SQLException sqle) {
+            log.debug(sqle.getMessage(), sqle);
         }
         return players;
     }

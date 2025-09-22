@@ -1,9 +1,12 @@
 package game.text_adventure.service;
 
 import game.text_adventure.dto.Player;
+import game.text_adventure.exception.PlayerSaveException;
 import game.text_adventure.repository.PlayerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +21,17 @@ public class PlayerService {
         player.setStorySave(startingSituation);
         player.setIsActive(true);
         player.setSituationsCounter(0);
-        return playerRepository.save(player);
+        if (playerRepository.save(player).isPresent()) {
+            return player;
+        }
+        throw new PlayerSaveException("Unable to create new player " + playerName);
     }
 
     public Player setPlayerActiveStatus(Player player, boolean active) {
         player.setIsActive(active);
-        return playerRepository.save(player);
+        if (playerRepository.save(player).isPresent()) {
+            return player;
+        }
+        throw new PlayerSaveException("Unable to set player active status to " + active + "for player " + player.getName());
     }
 }
