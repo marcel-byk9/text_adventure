@@ -69,16 +69,8 @@ public class TextAdventure {
         System.out.println("Wie wirst du genannt?");
         String name = scanner.nextLine();
 
-        // TODO replace with string from database
-        System.out.println("Wähle Klasse");
-
-        System.out.println("1. Wasserbändiger\n2. Feuerbändiger\n3. Erdbändiger\n");
         String playerClass = getPlayerClassInput();
 
-        // TODO replace with string from database
-        System.out.println("Wähle Hintergrund");
-
-        System.out.println("1. Test\n2. Test2\n3. Test3\n");
         String background = getBackgroundInput();
 
         UUID startingSituation = getStartingSituationId();
@@ -163,7 +155,7 @@ public class TextAdventure {
 
             // TODO find better option to resolve running into not options being available
             if (options.isEmpty()) {
-                System.out.println("Ender der Geschichte erreicht.");
+                log.debug("No options available");
             }
 
             for (int i = 0; i < options.size(); i++) {
@@ -174,7 +166,6 @@ public class TextAdventure {
 
             UUID nextId = options.get(choice - 1).getNextSituationId();
             player.setStorySave(nextId.toString());
-            player.setSituationsCounter(player.getSituationsCounter() + 1);
 
             playerService.save(player);
 
