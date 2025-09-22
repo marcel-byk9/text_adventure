@@ -46,3 +46,13 @@
 
 ##### Martin
 - Weiterentwicklung der Logik in TextAdventure
+
+---
+
+### 22.09.2025
+
+##### Marcel und Martin
+- Koordinieren der benötigten Methoden zwischen Datenmodell und Anwendungslogik
+
+##### Martin
+- Weiterentwicklung der Logik in TextAdventure

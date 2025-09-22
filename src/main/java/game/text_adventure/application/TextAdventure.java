@@ -40,7 +40,7 @@ public class TextAdventure {
 
             switch (input) {
                 case "1" -> startNewGame();
-                case "2" -> showSavedGames();
+                case "2" -> showSaveGameMenu();
                 case "3" -> {
                     System.out.println("Bis zum nächsten Abenteuer. Feurio!");
                     running = false;
@@ -88,6 +88,40 @@ public class TextAdventure {
         startStoryLoop(player);
     }
 
+    private void showSaveGameMenu() {
+        System.out.println("\nGespeicherte Spielstände werden geladen...");
+
+        List<Player> activePlayers =  new List(playerService.getAllActivePlayers());
+        for (int i = 0; i < activePlayers.size(); i++) {
+            System.out.println("%d. %s\n", i + 1, activePlayers.get(i).getName());
+        }
+
+        System.out.println("\nWas möchtest du tun?");
+        System.out.println("\n1. Einen Spielstand laden");
+        System.out.println("\n2. Einen Spielstand löschen");
+        System.out.println("\n3. Zurück zum Hauptmenü");
+
+
+        String input = scanner.nextLine();
+
+        switch (input) {
+            case "1" -> loadPlayer(activePlayers);
+            case "2" -> deletePlayer();
+            case "3" -> {
+                return;
+            }
+            default -> System.out.println("Ungültige Eingabe. Bitte wähle 1, 2 oder 3");
+        }
+    }
+
+    private void loadPlayer(List<Player> players) {
+        System.out.println("\nWelchen Spielstand möchtest du laden?");
+
+        Player playerChoice = players.get(getValidChoiceInput(players.size()));
+
+        startStoryLoop(playerChoice);
+    }
+
     private void startStoryLoop(Player player) {
         while (true) {
             UUID currentId = UUID.fromString(player.getStorySave());
@@ -120,11 +154,6 @@ public class TextAdventure {
                 break;
             }
         }
-    }
-
-    private void showSavedGames() {
-        System.out.println("\nGespeicherte Spielstände werden geladen...");
-        System.out.println("Funktion noch nicht implementiert.");
     }
 
     private void pressEnterToContinue() {
