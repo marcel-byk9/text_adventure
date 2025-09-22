@@ -86,7 +86,7 @@ Kurz bevor der Soldat dich erreicht...
 ---
 
 Der Soldat wirkt wie im Wahn. Er scheint die Flammen kaum noch zurückhalten zu können.
-Dir ist egal, wie es endet. Du wirst nie vor einem Feuerbändiger zurückweichen.
+Dir ist egal, wie es endet. Du wirst nie vor einem Feuerbändiger zurückweichen. 
 Du spürst die Kraft und Ruhe der Erde unter deinen Füßen.
 
 Plötzlich kommt ein Ruf von einem der Soldaten im hinteren Teil der Gruppe.
@@ -104,7 +104,7 @@ Deine Reaktion kam zu früh. Den Bruchteil einer Sekunde später spürst du den 
 der dir in Bauch getreten hat.
 Für einen Moment scheint der Soldat irritiert. Trotz des kraftvollen Tritts gibst du nicht nach.
 Ein verwirrter Ausdruck erscheint auf seinem Gesicht. Du kannst dir ein schmales lächeln nicht verkneifen.
-Doch plötzlich schießt ein stechender Schmerz durch dein Knie.
+Doch plötzlich schießt ein stechender Schmerz durch dein Knie. 
 
 Du fällst zu Boden und landest im Staub.
 
@@ -131,7 +131,7 @@ Ein zusammengerolltes und zertrampeltes Stück Papier.
 
 ---
 
-Keuchend bückst du dich herab und stopfst das Papier unter deinen Gürtel.
+Keuchend bückst du dich herab und stopfst das Papier unter deinen Gürtel. 
 Du machst dich auf den Weg zu deinem Dorf. Trotz der Schmerzen kommst du gut voran.
 
 1. Du gehst nach Hause.
