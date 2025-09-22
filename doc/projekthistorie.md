@@ -28,3 +28,31 @@
 - Überarbeiten und erweitern von Lasten- und Pflichtenheft
 - Erstellen der initialen Projekthistorie
 - Skizzenhafte Konzeption eines Spielszenarios
+
+---
+
+### 15.09.2025
+
+##### Martin
+- Erstellen der Textbausteine im Situation/Option-Format
+- Implementieren der Main- und TextAdventure Klassen
+
+##### Luca und Martin
+- Abstimmen der Datenbankstruktur mit dem Story-Konzept
+
+---
+
+### 18.09.2025
+
+##### Martin
+- Weiterentwicklung der Logik in TextAdventure
+
+---
+
+### 22.09.2025
+
+##### Marcel und Martin
+- Koordinieren der benötigten Methoden zwischen Datenmodell und Anwendungslogik
+
+##### Martin
+- Weiterentwicklung der Logik in TextAdventure
