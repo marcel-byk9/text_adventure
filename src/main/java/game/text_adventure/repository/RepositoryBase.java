@@ -20,8 +20,4 @@ public abstract class RepositoryBase {
             log.error(sqle.getMessage());
         }
     }
-
-    protected PreparedStatement preparedStatement(String sql) throws SQLException {
-        return this.connection.prepareStatement(sql);
-    }
 }
