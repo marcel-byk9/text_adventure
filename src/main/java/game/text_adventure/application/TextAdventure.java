@@ -91,7 +91,12 @@ public class TextAdventure {
     private void showSaveGameMenu() {
         System.out.println("\nGespeicherte Spielstände werden geladen...");
 
-        List<Player> activePlayers =  new List(playerService.getAllActivePlayers());
+        List<Player> activePlayers = playerService.getAllActivePlayers();
+        if (activePlayers.isEmpty()) {
+            System.out.println("Keine gespeicherten Spielstände vorhanden.");
+            return;
+        }
+
         for (int i = 0; i < activePlayers.size(); i++) {
             System.out.println("%d. %s\n", i + 1, activePlayers.get(i).getName());
         }
@@ -101,12 +106,11 @@ public class TextAdventure {
         System.out.println("\n2. Einen Spielstand löschen");
         System.out.println("\n3. Zurück zum Hauptmenü");
 
-
         String input = scanner.nextLine();
 
         switch (input) {
             case "1" -> loadPlayer(activePlayers);
-            case "2" -> deletePlayer();
+            case "2" -> deletePlayer(activePlayers);
             case "3" -> {
                 return;
             }
@@ -115,11 +119,38 @@ public class TextAdventure {
     }
 
     private void loadPlayer(List<Player> players) {
-        System.out.println("\nWelchen Spielstand möchtest du laden?");
+        System.out.println("\nWelchen Spielstand möchtest du laden?");        System.out.println("\nWelchen Spielstand möchtest du laden?");
+        System.out.println("\nGib 'q' ein, um zum Hauptmenü zurückzukehren.");
 
-        Player playerChoice = players.get(getValidChoiceInput(players.size()));
+        for (int i = 0; i < players.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, players.get(i).getName());
+        }
 
+        int choice = getValidChoiceInputOrQuit(players.size());
+        if (choice == -1) {
+            return;
+        }
+
+        Player playerChoice = players.get(choice - 1);
         startStoryLoop(playerChoice);
+    }
+
+    private void deletePlayer(List<Player> players) {
+        System.out.println("\nWelchen Spielstand möchtest du löschen?");
+
+        for (int i = 0; i < players.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, players.get(i).getName());
+        }
+
+        int choice = getValidChoiceInputOrQuit(players.size());
+        if (choice == -1) {
+            return;
+        }
+
+        Player playerChoice = players.get(choice - 1);
+        playerService.deletePlayer(playerChoice);
+        System.out.println("\nDer Spielstand '" + playerChoice.getName() + "' wurde gelöscht.");
+
     }
 
     private void startStoryLoop(Player player) {
@@ -208,6 +239,26 @@ public class TextAdventure {
                 }
             } catch (NumberFormatException ignored) { }
             System.out.println("Ungültige Eingabe. Bitte gib eine Zahl zwischen 1 und " + maxOptions + " ein.");
+        }
+    }
+
+    private int getValidChoiceInputOrQuit(int maxOptions) {
+        while (true) {
+            System.out.print("Deine Wahl (oder 'q' zum Zurückkehren): ");
+            String input = scanner.nextLine().trim().toLowerCase();
+
+            if (input.equals("q")) {
+                return -1;
+            }
+
+            try {
+                int choice = Integer.parseInt(input);
+                if (choice >= 1 && choice <= maxOptions) {
+                    return choice;
+                }
+            } catch (NumberFormatException ignored) { }
+
+            System.out.println("Ungültige Eingabe. Bitte gib eine Zahl zwischen 1 und " + maxOptions + " ein oder 'q' zum Zurückkehren.");
         }
     }
 }
