@@ -18,3 +18,6 @@ eventuell aktivieren und deaktivieren
 
 ##### Option
 - UUID getNextSituationId()
+
+##### Playerservice
+- void save()
