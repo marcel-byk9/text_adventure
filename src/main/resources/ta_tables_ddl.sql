@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS PlayerBackgroundOption(
 
 CREATE TABLE IF NOT EXISTS Option(
     Id TEXT PRIMARY KEY,
-    Name TEXT,
     Description TEXT
 );
 
@@ -48,4 +47,6 @@ CREATE TABLE IF NOT EXISTS Storytelling(
     Option TEXT,
     Next_Situation TEXT,
     CONSTRAINT FK_Next_Situation FOREIGN KEY (Next_Situation) REFERENCES Situation(Id)
+	CONSTRAINT FK_Situation FOREIGN KEY (Situation) REFERENCES Situation(Id)
+	CONSTRAINT FK_Option FOREIGN KEY (Option) REFERENCES Option(Id)
 );
