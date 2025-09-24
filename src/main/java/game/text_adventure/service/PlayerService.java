@@ -31,7 +31,7 @@ public class PlayerService {
         throw new PlayerSaveException("Unable to set player active status to " + active + "for player " + player.getName());
     }
 
-    // TODO refactor rough implementation
+    // TODO improve rough implementation
     public List<Player> getActivePlayers() {
         return playerRepository.findAllByIsActiveTrue();
     }
@@ -39,5 +39,10 @@ public class PlayerService {
     // TODO add logic
     public void deletePlayer(Player player) {
         return;
+    }
+
+    // TODO improve rough implementation
+    public void savePlayer(Player player) {
+        playerRepository.save(player);
     }
 }

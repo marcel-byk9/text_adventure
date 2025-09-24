@@ -2,6 +2,7 @@ package game.text_adventure.application;
 import game.text_adventure.dto.Option;
 import game.text_adventure.dto.Player;
 import game.text_adventure.dto.Situation;
+import game.text_adventure.service.OptionService;
 import game.text_adventure.service.PlayerService;
 import game.text_adventure.service.SituationService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class TextAdventure {
     private final Scanner scanner = new Scanner(System.in);
     private final PlayerService playerService = new PlayerService();
     private final SituationService situationService = new SituationService();
+    private final OptionService optionService = new OptionService();
 
     public TextAdventure() {
     }
@@ -159,22 +161,24 @@ public class TextAdventure {
             }
 
             List<Option> options = maybeOptions.get();
+
             System.out.println("\n" + currentSituation.getDescription());
             displayOptions(options);
 
             int choice = getValidChoiceInput(options.size());
-
             Option selectedOption = options.get(choice - 1);
-            UUID nextId = UUID.fromString(selectedOption.getNextSituationId());
-            player.setStorySave(nextId.toString());
-            playerService.save(player);
 
-            Optional<Situation> maybeNextSituation = situationService.getSituationById(nextId);
+            Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(UUID.fromString(String.valueOf(selectedOption.getId())));
             if (maybeNextSituation.isEmpty()) {
                 System.out.println("Fehler: Nächste Situation konnte nicht geladen werden.");
                 break;
             }
+
             Situation nextSituation = maybeNextSituation.get();
+
+
+            player.setStorySave(nextSituation.getId().toString());
+            playerService.savePlayer(player);
 
             if (Boolean.TRUE.equals(nextSituation.getIsEnding())) {
                 System.out.println("\n" + nextSituation.getDescription());

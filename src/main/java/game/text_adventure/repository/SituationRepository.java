@@ -2,6 +2,7 @@ package game.text_adventure.repository;
 
 import game.text_adventure.dto.Option;
 import game.text_adventure.dto.Situation;
+import game.text_adventure.mapper.OptionMapper;
 import game.text_adventure.mapper.SituationMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +41,7 @@ public class SituationRepository extends RepositoryBase {
         List<Option> options = new ArrayList<>();
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, situationId.toString());
-            options = OptionsMapper.mapAll(stmt.executeQuery());
+            options = OptionMapper.mapAll(stmt.executeQuery());
         } catch (SQLException e) {
             log.error(e.getMessage());
             return Optional.empty();

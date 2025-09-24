@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class OptionMapper {
 
@@ -13,7 +14,7 @@ public class OptionMapper {
         List<Option> options = new ArrayList<>();
         while (rs.next()) {
             Option option = new Option();
-            option.setId(rs.getString("Id"));
+            option.setId(UUID.fromString(rs.getString("Id")));
             option.setDescription(rs.getString("Description"));
             options.add(option);
         }
