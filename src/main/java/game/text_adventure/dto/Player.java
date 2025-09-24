@@ -12,4 +12,5 @@ public class Player {
     private String storySave;
     private Boolean isActive;
     private Integer situationsCounter;
+
 }

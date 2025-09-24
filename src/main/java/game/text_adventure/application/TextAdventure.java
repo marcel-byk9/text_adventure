@@ -73,6 +73,12 @@ public class TextAdventure {
 
         UUID startingSituation = getStartingSituationId();
 
+        // TODO remove after debugging
+        System.out.println("Name: " + name);
+        System.out.println("PlayerClass: " + playerClass);
+        System.out.println("Background: " + background);
+        System.out.println("StartingSituation: " + startingSituation.toString());
+
         // TODO adapt to correct service implementation
         Player player = playerService.createNewPlayerRun(name, playerClass, background, startingSituation.toString());
         startStoryLoop(player);

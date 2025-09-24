@@ -15,7 +15,11 @@ public final class PlayerMapper {
     public static Optional<Player> map(ResultSet rs) {
         try {
             Player player = new Player();
-            player.setId(UUID.fromString(rs.getString("Id")));
+            String idString = rs.getString("Id");
+            if (idString == null || idString.isEmpty()) {
+                throw new SQLException("Id darf nicht null sein");
+            }
+            player.setId(UUID.fromString(idString));
             player.setName(rs.getString("Name"));
             player.setBackground(rs.getString("Background"));
             player.setPlayerClass(rs.getString("PlayerClass"));

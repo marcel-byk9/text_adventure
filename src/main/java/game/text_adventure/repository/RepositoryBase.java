@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 @Slf4j
 public abstract class RepositoryBase {
-    private static final String DATABASE_PATH = "../../../resources/text_adventure.db";
+    private static final String DATABASE_PATH = "src/main/resources/text_adventure.db";
 
     protected Connection connection;
 
