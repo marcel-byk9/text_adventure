@@ -4,6 +4,8 @@ import game.text_adventure.dto.Player;
 import game.text_adventure.exception.PlayerSaveException;
 import game.text_adventure.repository.PlayerRepository;
 
+import java.util.List;
+
 public class PlayerService {
     private final PlayerRepository playerRepository = new PlayerRepository();
 
@@ -27,5 +29,15 @@ public class PlayerService {
             return player;
         }
         throw new PlayerSaveException("Unable to set player active status to " + active + "for player " + player.getName());
+    }
+
+    // TODO refactor rough implementation
+    public List<Player> getActivePlayers() {
+        return playerRepository.findAllByIsActiveTrue();
+    }
+
+    // TODO add logic
+    public void deletePlayer(Player player) {
+        return;
     }
 }

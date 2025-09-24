@@ -56,3 +56,10 @@
 
 ##### Martin
 - Weiterentwicklung der Logik in TextAdventure
+
+---
+
+### 24.09.2025
+
+##### Martin
+- Weiterentwicklung der Logik in TextAdventure mithilfe und deren Anbindung an die Service-Klassen 
