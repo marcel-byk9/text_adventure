@@ -1,15 +1,16 @@
 INSERT INTO PlayerClassOption(Id, Name, Description) VALUES 
 ('8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3','Klassenlos','noch keine Klasse'),
-('1c4b9f67-27b1-4e0d-9a0b-5a3e0f4d6c27','Feuerbendiger', 'Holzkohle der höchsten Qualität für die Schmiedefeuer herzustellen.'),
-('e2a1c8da-bf4e-4b5e-9134-02f28a64d8e6','Wasserbendiger','das Wasser in Pflanzen beeinflussen zu können und besondere Heilkräuter zu züchten.'),
-('74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92','Erdbendiger','Erze verschiedener Metalle zu finden und diese von Unreinheiten zu befreien.');
+('1c4b9f67-27b1-4e0d-9a0b-5a3e0f4d6c27','Feuerbändiger', 'Holzkohle der höchsten Qualität für die Schmiedefeuer herzustellen.'),
+('e2a1c8da-bf4e-4b5e-9134-02f28a64d8e6','Wasserbändiger','das Wasser in Pflanzen beeinflussen zu können und besondere Heilkräuter zu züchten.'),
+('74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92','Erdbändiger','Erze verschiedener Metalle zu finden und diese von Unreinheiten zu befreien.');
 
 INSERT INTO PlayerBackgroundOption(Id, Name, Description) VALUES
 ('8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3', 'Akrobat', 'Akrobat bei einem wandernden Zirkus'),
 ('3b7c9e12-5f4b-4a4a-bd14-1b2d6a9f02c8', 'Stadtwache', 'Stadtwache, die bei einem Überfall am Knie verletzt wurde und den Dienst verlassen musste'),
-('c12a0c71-2c8f-4e2d-9b43-2a5e5a6e7f45', 'Feuersoldat', 'Soldat in der Armee der Feuernation'),
-('b4e3f9d8-68a7-4e94-82b1-9a43f20b5f1c', 'Wassersoldat', 'Soldat in der Armee des Wasserstamms'),
-('a19f3c62-58d1-41e7-9d2c-31d0c93a4b20', 'Erdsoldat', 'Soldat in der Armee des Erdkönigreichs');
+('7b35d381-ec76-4d6b-8a00-bca9444c6797', 'Nationssoldat', 'Soldat in der Armee deiner Nation');
+--('c12a0c71-2c8f-4e2d-9b43-2a5e5a6e7f45', 'Feuernationssoldat', 'Soldat in der Armee der Feuernation'),
+--('b4e3f9d8-68a7-4e94-82b1-9a43f20b5f1c', 'Wasserstammkrieger', 'Kämpfer in der Armee des Wasserstamms'),
+--('a19f3c62-58d1-41e7-9d2c-31d0c93a4b20', 'Erdkönigreichssoldat', 'Soldat in der Armee des Erdkönigreichs');
 
 INSERT INTO Situation(Id, Description, IsEnding) VALUES
 ('7c1d5a9b-2e3f-4b6d-8c9a-1f2e3a4b5c6d', 'Um dir deinen Lebensunterhalt zu verdienen, setzt du insgeheim deine Bändigungskräfte ein.
@@ -91,7 +92,7 @@ INSERT INTO Option(Id, Description ) VALUES
 ('b4e3f9d8-68a7-4e94-82b1-9a43f20b5f1c', 'Du versuchst, das Papier aufzuheben.'),
 ('a19f3c62-58d1-41e7-9d2c-31d0c93a4b20', 'Du gehst nach Hause.');
 
-INSERT INTO Storytelling( Id, Situation, Option, Next_Situation) VALUES
+INSERT INTO Storytelling(Id, Situation, Option, Next_Situation) VALUES
 ('e23a9d7b-9f14-4e2f-84a2-8c4d0f2b3a65', '8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c', '6d3a1b9c-2f8e-4a7f-9d2c-1b4e3f6a7c92', '3c4d5e6f-7a8b-49c0-9d1e-2f3a4b5c6d7e'),
 ('9b84c3e1-7a1f-44c5-8e1a-7c2f4d1b2a36', '8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c', '4c8e2b1d-9f3a-42d6-8e1c-7a9b2f3d6c45', '3c4d5e6f-7a8b-49c0-9d1e-2f3a4b5c6d7e'),
 ('2f7c1a3b-8e94-4f23-9b8d-3e2a1d7c6b49', '3c4d5e6f-7a8b-49c0-9d1e-2f3a4b5c6d7e', 'a4f7c9e1-3b2d-41e8-9c7a-2e1b6f4d8a93', '4d5e6f7a-8b9c-40d1-9e2f-3a4b5c6d7e8f'),
@@ -107,3 +108,6 @@ INSERT INTO Storytelling( Id, Situation, Option, Next_Situation) VALUES
 ('c9e1a7b3-5f2d-4d8c-8b9a-3a7f2e1c6d48', '0d1e2f3a-4b5c-46d7-9e8f-9a0b1c2d3e4f', 'c12a0c71-2c8f-4e2d-9b43-2a5e5a6e7f45', '1e2f3a4b-5c6d-47e8-9f9a-0b1c2d3e4f5a'),
 ('b7d9c2f4-1a3e-4b6d-8f9a-2d4c7e1b3a56', '0d1e2f3a-4b5c-46d7-9e8f-9a0b1c2d3e4f', 'b4e3f9d8-68a7-4e94-82b1-9a43f20b5f1c', '1e2f3a4b-5c6d-47e8-9f9a-0b1c2d3e4f5a'),
 ('3d9a7c1f-8e2b-42c5-9a4d-1b6f2e3c7d94', '1e2f3a4b-5c6d-47e8-9f9a-0b1c2d3e4f5a', 'a19f3c62-58d1-41e7-9d2c-31d0c93a4b20', '2f3a4b5c-6d7e-48f9-9a0b-1c2d3e4f5a6b');
+
+INSERT INTO Player(Id, Name, Background, Class, Story_Save, IsActive, SituationsCounter)
+VALUES ('b79f1b8d-ec2d-4419-aba9-24cd5efa2ff2', 'Test', '3b7c9e12-5f4b-4a4a-bd14-1b2d6a9f02c8', '74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92', '8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c', true, 2);

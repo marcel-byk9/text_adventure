@@ -62,13 +62,19 @@
 ### 24.09.2025
 
 ##### Martin
-- Weiterentwicklung der Logik in TextAdventure mithilfe und deren Anbindung an die Service-Klassen 
--
+- Weiterentwicklung der Logik in TextAdventure mithilfe und deren Anbindung an die Service-Klassen
+
+---
+
 ### 29.09.2025
 
 ##### Gruppe
 - Besprechung des aktuellen Entwicklungsstandes sowie notwendiger Maßnahmen zum zusammenführen separater Git-Branches
 - Gemeinsamer Code-Review
+- Anpassen von Methoden innerhalb von TextAdventure um die Kompatibilität zu Service-Klassen sicherzustellen
 
 ##### Martin
 - Dokumentieren möglicher zukünftiger Potenziale
+- Anpassen der Insert-Statements unter Berücksichtigung von Charaktereditor und Spiel-Loop
+
+

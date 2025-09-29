@@ -26,22 +26,23 @@ public class SituationRepository extends RepositoryBase {
         }
     }
 
-    public Optional<Situation> findNextSituationByOptionId(UUID optionId) {
+    public Optional<Situation> findNextSituationByOptionId(UUID situationId, UUID optionId) {
         String sql = """
-            SELECT *
-            FROM Situation
+            SELECT * FROM Situation
             WHERE Id = (
                 SELECT Next_Situation
                 FROM Storytelling
-                WHERE Option = ?
+                WHERE Situation = ?
+                AND Option = ?
             );
             """;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, optionId.toString());
-            return SituationMapper.map(connection.prepareStatement(sql).executeQuery());
+            stmt.setString(1, situationId.toString());
+            stmt.setString(2, optionId.toString());
+            return SituationMapper.map(stmt.executeQuery());
         } catch (SQLException e) {
-            log.error("Fehler beim Abrufen der nächsten Situation für Option {}: {}", optionId, e.getMessage());
+            log.error("Fehler beim Abrufen der nächsten Situation für Option {}: {}", situationId, e.getMessage());
             return Optional.empty();
         }
     }

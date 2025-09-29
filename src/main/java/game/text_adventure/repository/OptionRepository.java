@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Slf4j
 public class OptionRepository extends RepositoryBase {
-    public List<Option> findOptionsBySituationId(UUID situationId) {
+    public List<Option> findOptionsBySituationId(UUID id) {
         String sql = """
                 SELECT o.*
                 FROM StoryTelling s
@@ -20,7 +20,7 @@ public class OptionRepository extends RepositoryBase {
                 """;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, situationId.toString());
+            stmt.setString(1, id.toString());
             return OptionMapper.mapMultiple(stmt.executeQuery());
         } catch (SQLException e) {
             log.error(e.getMessage());

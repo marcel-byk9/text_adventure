@@ -8,12 +8,29 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 public class PlayerRepository extends RepositoryBase {
-    public List<Player> findAllByIsActiveTrue() {
+    public Optional<Player> findById(UUID id) {
         String sql = """
                 SELECT * FROM Player
+                WHERE Id = ?;
+                """;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, id.toString());
+            return PlayerMapper.map(stmt.executeQuery());
+        } catch (SQLException sqle) {
+            log.error(sqle.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    public List<Player> findAllByIsActiveTrue() {
+        String sql = """
+                SELECT *
+                FROM Player
                 WHERE IsActive = true;
                 """;
         try {
@@ -24,7 +41,7 @@ public class PlayerRepository extends RepositoryBase {
         }
     }
 
-    public Optional<Player> save(Player player) {
+    public void save(Player player) {
         String searchSql = """
                 SELECT * FROM Player
                 WHERE Id = ?;
@@ -59,10 +76,23 @@ public class PlayerRepository extends RepositoryBase {
             stmt.setBoolean(5, player.getIsActive());
             stmt.setInt(6, player.getSituationsCounter());
             stmt.setString(7, String.valueOf(player.getId()));
-            return PlayerMapper.map(stmt.executeQuery());
+            stmt.executeQuery();
         } catch (SQLException sqle) {
             log.error(sqle.getMessage());
-            return Optional.empty();
+        }
+    }
+
+    public void delete(Player player) {
+        String sql = """
+                DELETE FROM Player
+                WHERE Id = ?;
+                """;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, player.getId().toString());
+            stmt.executeQuery();
+        } catch (SQLException sqle) {
+            log.error(sqle.getMessage());
         }
     }
 }
