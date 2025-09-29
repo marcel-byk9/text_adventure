@@ -29,7 +29,8 @@ public class PlayerRepository extends RepositoryBase {
 
     public List<Player> findAllByIsActiveTrue() {
         String sql = """
-                SELECT * FROM Player
+                SELECT *
+                FROM Player
                 WHERE IsActive = true;
                 """;
         try {
