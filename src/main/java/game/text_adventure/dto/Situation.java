@@ -8,5 +8,4 @@ public class Situation {
     private UUID id;
     private String description;
     private Boolean isEnding;
-
 }

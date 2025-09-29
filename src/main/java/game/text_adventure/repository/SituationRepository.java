@@ -25,4 +25,24 @@ public class SituationRepository extends RepositoryBase {
             return Optional.empty();
         }
     }
+
+    public Optional<Situation> findNextSituationByOptionId(UUID optionId) {
+        String sql = """
+            SELECT *
+            FROM Situation
+            WHERE Id = (
+                SELECT Next_Situation
+                FROM Storytelling
+                WHERE Option = ?
+            );
+            """;
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, optionId.toString());
+            return SituationMapper.map(connection.prepareStatement(sql).executeQuery());
+        } catch (SQLException e) {
+            log.error("Fehler beim Abrufen der nächsten Situation für Option {}: {}", optionId, e.getMessage());
+            return Optional.empty();
+        }
+    }
 }

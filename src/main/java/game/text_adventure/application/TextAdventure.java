@@ -2,13 +2,12 @@ package game.text_adventure.application;
 import game.text_adventure.dto.Option;
 import game.text_adventure.dto.Player;
 import game.text_adventure.dto.Situation;
+import game.text_adventure.service.OptionService;
 import game.text_adventure.service.PlayerService;
 import game.text_adventure.service.SituationService;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Class for handling the main game logic
@@ -17,12 +16,11 @@ import java.util.UUID;
 public class TextAdventure {
 
     private final Scanner scanner = new Scanner(System.in);
-    private final PlayerService playerService;
-    private final SituationService situationService;
+    private final PlayerService playerService = new PlayerService();
+    private final SituationService situationService = new SituationService();
+    private final OptionService optionService = new OptionService();
 
-    public TextAdventure(PlayerService playerService, SituationService situationService) {
-        this.playerService = playerService;
-        this.situationService = situationService;
+    public TextAdventure() {
     }
 
     /**
@@ -75,22 +73,28 @@ public class TextAdventure {
 
         UUID startingSituation = getStartingSituationId();
 
+        // TODO remove after debugging
+        System.out.println("Name: " + name);
+        System.out.println("PlayerClass: " + playerClass);
+        System.out.println("Background: " + background);
+        System.out.println("StartingSituation: " + startingSituation.toString());
+
         // TODO adapt to correct service implementation
-        Player player = playerService.createNewPlayerRun(name, playerClass, background, startingSituation);
+        Player player = playerService.createNewPlayerRun(name, playerClass, background, startingSituation.toString());
         startStoryLoop(player);
     }
 
     private void showSaveGameMenu() {
         System.out.println("\nGespeicherte Spielstände werden geladen...");
 
-        List<Player> activePlayers = playerService.getAllActivePlayers();
+        List<Player> activePlayers = playerService.getActivePlayers();
         if (activePlayers.isEmpty()) {
             System.out.println("Keine gespeicherten Spielstände vorhanden.");
             return;
         }
 
         for (int i = 0; i < activePlayers.size(); i++) {
-            System.out.println("%d. %s\n", i + 1, activePlayers.get(i).getName());
+            System.out.println((i + 1) + ". " + activePlayers.get(i).getName());
         }
 
         System.out.println("\nWas möchtest du tun?");
@@ -142,34 +146,46 @@ public class TextAdventure {
         Player playerChoice = players.get(choice - 1);
         playerService.deletePlayer(playerChoice);
         System.out.println("\nDer Spielstand '" + playerChoice.getName() + "' wurde gelöscht.");
-
     }
 
     private void startStoryLoop(Player player) {
         while (true) {
             UUID currentId = UUID.fromString(player.getStorySave());
-            Situation currentSituation = situationService.getSituationById(currentId);
-            List<Option> options = currentSituation.getOptions();
+
+            Optional<Situation> maybeSituation = situationService.getSituationById(currentId);
+            if (maybeSituation.isEmpty()) {
+                System.out.println("Fehler: Situation konnte nicht geladen werden.");
+                break;
+            }
+            Situation currentSituation = maybeSituation.get();
+
+            Optional<List<Option>> maybeOptions = optionService.getSituationOptionsById(currentId);
+            if (maybeOptions.isEmpty() || maybeOptions.get().isEmpty()) {
+                System.out.println("\n" + currentSituation.getDescription());
+                System.out.println("Keine Optionen verfügbar. Die Geschichte endet hier.");
+                break;
+            }
+
+            List<Option> options = maybeOptions.get();
 
             System.out.println("\n" + currentSituation.getDescription());
-
-            // TODO find better option to resolve running into not options being available
-            if (options.isEmpty()) {
-                log.debug("No options available");
-            }
-
-            for (int i = 0; i < options.size(); i++) {
-                System.out.println("%d. %s\n", i + 1, options.get(i).getName());
-            }
+            displayOptions(options);
 
             int choice = getValidChoiceInput(options.size());
+            Option selectedOption = options.get(choice - 1);
 
-            UUID nextId = options.get(choice - 1).getNextSituationId();
-            player.setStorySave(nextId.toString());
+            Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(UUID.fromString(String.valueOf(selectedOption.getId())));
+            if (maybeNextSituation.isEmpty()) {
+                System.out.println("Fehler: Nächste Situation konnte nicht geladen werden.");
+                break;
+            }
 
-            playerService.save(player);
+            Situation nextSituation = maybeNextSituation.get();
 
-            Situation nextSituation = situationService.getSituationById(nextId);
+
+            player.setStorySave(nextSituation.getId().toString());
+            playerService.savePlayer(player);
+
             if (Boolean.TRUE.equals(nextSituation.getIsEnding())) {
                 System.out.println("\n" + nextSituation.getDescription());
                 System.out.println("Abenteuer ist zu Ende.");
@@ -217,6 +233,12 @@ public class TextAdventure {
     private UUID getStartingSituationId() {
         // TODO replace with logic
         return UUID.fromString("00000000-0000-0000-0000-000000000001");
+    }
+
+    private void displayOptions(List<Option> options) {
+        for (int i = 0; i < options.size(); i++) {
+            System.out.printf("%d. %s%n", i + 1, options.get(i).getDescription());
+        }
     }
 
     private int getValidChoiceInput(int maxOptions) {

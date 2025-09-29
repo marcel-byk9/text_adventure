@@ -59,6 +59,11 @@
 
 ---
 
+### 24.09.2025
+
+##### Martin
+- Weiterentwicklung der Logik in TextAdventure mithilfe und deren Anbindung an die Service-Klassen 
+-
 ### 29.09.2025
 
 ##### Gruppe

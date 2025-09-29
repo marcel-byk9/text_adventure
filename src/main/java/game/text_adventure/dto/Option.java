@@ -8,5 +8,5 @@ public class Option {
     private UUID id;
     private String name;
     private String description;
-    private Situation situation;
+    private UUID situation;
 }
