@@ -1,15 +1,16 @@
 INSERT INTO PlayerClassOption(Id, Name, Description) VALUES 
 ('8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3','Klassenlos','noch keine Klasse'),
-('1c4b9f67-27b1-4e0d-9a0b-5a3e0f4d6c27','Feuerbendiger', 'Holzkohle der höchsten Qualität für die Schmiedefeuer herzustellen.'),
-('e2a1c8da-bf4e-4b5e-9134-02f28a64d8e6','Wasserbendiger','das Wasser in Pflanzen beeinflussen zu können und besondere Heilkräuter zu züchten.'),
-('74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92','Erdbendiger','Erze verschiedener Metalle zu finden und diese von Unreinheiten zu befreien.');
+('1c4b9f67-27b1-4e0d-9a0b-5a3e0f4d6c27','Feuerbändiger', 'Holzkohle der höchsten Qualität für die Schmiedefeuer herzustellen.'),
+('e2a1c8da-bf4e-4b5e-9134-02f28a64d8e6','Wasserbändiger','das Wasser in Pflanzen beeinflussen zu können und besondere Heilkräuter zu züchten.'),
+('74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92','Erdbändiger','Erze verschiedener Metalle zu finden und diese von Unreinheiten zu befreien.');
 
 INSERT INTO PlayerBackgroundOption(Id, Name, Description) VALUES
 ('8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3', 'Akrobat', 'Akrobat bei einem wandernden Zirkus'),
 ('3b7c9e12-5f4b-4a4a-bd14-1b2d6a9f02c8', 'Stadtwache', 'Stadtwache, die bei einem Überfall am Knie verletzt wurde und den Dienst verlassen musste'),
-('c12a0c71-2c8f-4e2d-9b43-2a5e5a6e7f45', 'Feuersoldat', 'Soldat in der Armee der Feuernation'),
-('b4e3f9d8-68a7-4e94-82b1-9a43f20b5f1c', 'Wassersoldat', 'Soldat in der Armee des Wasserstamms'),
-('a19f3c62-58d1-41e7-9d2c-31d0c93a4b20', 'Erdsoldat', 'Soldat in der Armee des Erdkönigreichs');
+('7b35d381-ec76-4d6b-8a00-bca9444c6797', 'Nationssoldat', 'Soldat in der Armee deiner Nation');
+--('c12a0c71-2c8f-4e2d-9b43-2a5e5a6e7f45', 'Feuernationssoldat', 'Soldat in der Armee der Feuernation'),
+--('b4e3f9d8-68a7-4e94-82b1-9a43f20b5f1c', 'Wasserstammkrieger', 'Kämpfer in der Armee des Wasserstamms'),
+--('a19f3c62-58d1-41e7-9d2c-31d0c93a4b20', 'Erdkönigreichssoldat', 'Soldat in der Armee des Erdkönigreichs');
 
 INSERT INTO Situation(Id, Description, IsEnding) VALUES
 ('7c1d5a9b-2e3f-4b6d-8c9a-1f2e3a4b5c6d', 'Um dir deinen Lebensunterhalt zu verdienen, setzt du insgeheim deine Bändigungskräfte ein.
