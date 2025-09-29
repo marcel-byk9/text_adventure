@@ -13,8 +13,8 @@ public class OptionService {
     private final OptionRepository optionRepository = new OptionRepository();
     private final SituationRepository situationRepository = new SituationRepository();
 
-    public Optional<Situation> getNextSituationForOption(UUID optionId) {
-        return situationRepository.findNextSituationByOptionId(optionId);
+    public Optional<Situation> getNextSituationForOption(UUID situationId, UUID optionId) {
+        return situationRepository.findNextSituationByOptionId(situationId, optionId);
     }
 
     public List<Option> getSituationOptionsById(UUID situationId) {

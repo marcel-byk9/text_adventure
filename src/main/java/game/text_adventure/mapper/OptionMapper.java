@@ -16,7 +16,6 @@ public final class OptionMapper {
         try {
             Option option = new Option();
             option.setId(UUID.fromString(rs.getString("Id")));
-            option.setName(rs.getString("Name"));
             option.setDescription(rs.getString("Description"));
             return Optional.of(option);
         } catch (SQLException sqle) {

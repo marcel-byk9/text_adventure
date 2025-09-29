@@ -19,7 +19,7 @@ public final class PlayerMapper {
             player.setId(UUID.fromString(idString));
             player.setName(rs.getString("Name"));
             player.setBackground(UUID.fromString(rs.getString("Background")));
-            player.setPlayerClass(UUID.fromString(rs.getString("PlayerClass")));
+            player.setPlayerClass(UUID.fromString(rs.getString("Class")));
             player.setStorySave(UUID.fromString(rs.getString("Story_Save")));
             player.setIsActive(rs.getBoolean("IsActive"));
             player.setSituationsCounter(rs.getInt("SituationsCounter"));

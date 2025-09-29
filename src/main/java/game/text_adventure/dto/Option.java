@@ -6,7 +6,6 @@ import java.util.UUID;
 @Data
 public class Option {
     private UUID id;
-    private String name;
     private String description;
     private UUID situation;
 }
