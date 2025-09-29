@@ -7,9 +7,9 @@ import java.util.UUID;
 public class Player {
     private UUID id;
     private String name;
-    private PlayerBackgroundOption background;
-    private PlayerClassOption playerClass;
-    private Situation storySave;
+    private UUID background;
+    private UUID playerClass;
+    private UUID storySave;
     private Boolean isActive;
     private Integer situationsCounter;
 

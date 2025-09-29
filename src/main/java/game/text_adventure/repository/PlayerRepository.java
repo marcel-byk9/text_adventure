@@ -53,9 +53,9 @@ public class PlayerRepository extends RepositoryBase {
                 stmt = connection.prepareStatement(insertSql);
             }
             stmt.setString(1, player.getName());
-            stmt.setString(2, String.valueOf(player.getBackground().getId()));
-            stmt.setString(3, String.valueOf(player.getPlayerClass().getId()));
-            stmt.setString(4, String.valueOf(player.getStorySave().getId()));
+            stmt.setString(2, String.valueOf(player.getBackground().toString()));
+            stmt.setString(3, String.valueOf(player.getPlayerClass().toString()));
+            stmt.setString(4, String.valueOf(player.getStorySave().toString()));
             stmt.setBoolean(5, player.getIsActive());
             stmt.setInt(6, player.getSituationsCounter());
             stmt.setString(7, String.valueOf(player.getId()));

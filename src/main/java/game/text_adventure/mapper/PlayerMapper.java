@@ -16,14 +16,11 @@ public final class PlayerMapper {
         try {
             Player player = new Player();
             String idString = rs.getString("Id");
-            if (idString == null || idString.isEmpty()) {
-                throw new SQLException("Id darf nicht null sein");
-            }
             player.setId(UUID.fromString(idString));
             player.setName(rs.getString("Name"));
-            player.setBackground(rs.getString("Background"));
-            player.setPlayerClass(rs.getString("PlayerClass"));
-            player.setStorySave(rs.getString("Story_Save"));
+            player.setBackground(UUID.fromString(rs.getString("Background")));
+            player.setPlayerClass(UUID.fromString(rs.getString("PlayerClass")));
+            player.setStorySave(UUID.fromString(rs.getString("Story_Save")));
             player.setIsActive(rs.getBoolean("IsActive"));
             player.setSituationsCounter(rs.getInt("SituationsCounter"));
             return Optional.of(player);

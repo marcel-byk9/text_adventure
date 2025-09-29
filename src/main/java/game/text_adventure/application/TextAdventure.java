@@ -159,7 +159,7 @@ public class TextAdventure {
             }
             Situation currentSituation = maybeSituation.get();
 
-            Optional<List<Option>> maybeOptions = situationService.getSituationOptionsById(currentId);
+            Optional<List<Option>> maybeOptions = optionService.getSituationOptionsById(currentId);
             if (maybeOptions.isEmpty() || maybeOptions.get().isEmpty()) {
                 System.out.println("\n" + currentSituation.getDescription());
                 System.out.println("Keine Optionen verfügbar. Die Geschichte endet hier.");

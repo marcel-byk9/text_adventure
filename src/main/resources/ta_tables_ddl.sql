@@ -6,30 +6,30 @@ DROP TABLE IF EXISTS PlayerBackgroundOption;
 DROP TABLE IF EXISTS PlayerClassOption;
 
 CREATE TABLE IF NOT EXISTS PlayerClassOption(
-    Id TEXT PRIMARY KEY,
+    Id TEXT NOT NULL PRIMARY KEY,
     Name TEXT,
     Description TEXT
 );
 
 CREATE TABLE IF NOT EXISTS PlayerBackgroundOption(
-    Id TEXT PRIMARY KEY,
+    Id TEXT NOT NULL PRIMARY KEY,
     Name TEXT,
     Description TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Option(
-    Id TEXT PRIMARY KEY,
+    Id TEXT NOT NULL PRIMARY KEY,
     Description TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Situation(
-    Id TEXT PRIMARY KEY,
+    Id TEXT NOT NULL PRIMARY KEY,
     Description TEXT,
     IsEnding BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS Player(
-    Id TEXT PRIMARY KEY,
+    Id TEXT NOT NULL PRIMARY KEY,
     Name TEXT,
     Background TEXT,
     Class TEXT,
@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS Player(
 );
 
 CREATE TABLE IF NOT EXISTS Storytelling(
-    Id TEXT PRIMARY KEY,
+    Id TEXT NOT NULL PRIMARY KEY,
     Situation TEXT,
     Option TEXT,
     Next_Situation TEXT,
-    CONSTRAINT FK_Next_Situation FOREIGN KEY (Next_Situation) REFERENCES Situation(Id)
-	CONSTRAINT FK_Situation FOREIGN KEY (Situation) REFERENCES Situation(Id)
+    CONSTRAINT FK_Next_Situation FOREIGN KEY (Next_Situation) REFERENCES Situation(Id),
+	CONSTRAINT FK_Situation FOREIGN KEY (Situation) REFERENCES Situation(Id),
 	CONSTRAINT FK_Option FOREIGN KEY (Option) REFERENCES Option(Id)
 );

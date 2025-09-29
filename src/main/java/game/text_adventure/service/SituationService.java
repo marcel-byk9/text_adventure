@@ -14,8 +14,4 @@ public class SituationService {
     public Optional<Situation> getSituationById(UUID id) {
         return situationRepository.findById(id);
     }
-
-    public Optional<List<Option>> getSituationOptionsById(UUID situationId) {
-        return situationRepository.findOptionsBySituationId(situationId);
-    }
 }
