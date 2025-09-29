@@ -26,7 +26,7 @@ public class SituationRepository extends RepositoryBase {
         }
     }
 
-    public Optional<Situation> findNextSituationByOptionId(UUID optionId) {
+    public Optional<Situation> findNextSituationByOptionId(UUID id) {
         String sql = """
             SELECT *
             FROM Situation
@@ -38,10 +38,10 @@ public class SituationRepository extends RepositoryBase {
             """;
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, optionId.toString());
+            stmt.setString(1, id.toString());
             return SituationMapper.map(connection.prepareStatement(sql).executeQuery());
         } catch (SQLException e) {
-            log.error("Fehler beim Abrufen der nächsten Situation für Option {}: {}", optionId, e.getMessage());
+            log.error("Fehler beim Abrufen der nächsten Situation für Option {}: {}", id, e.getMessage());
             return Optional.empty();
         }
     }

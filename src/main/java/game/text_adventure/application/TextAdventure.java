@@ -87,7 +87,7 @@ public class TextAdventure {
     private void showSaveGameMenu() {
         System.out.println("\nGespeicherte Spielstände werden geladen...");
 
-        List<Player> activePlayers = playerService.getActivePlayers();
+        List<Player> activePlayers = playerService.getAllActivePlayers();
         if (activePlayers.isEmpty()) {
             System.out.println("Keine gespeicherten Spielstände vorhanden.");
             return;
