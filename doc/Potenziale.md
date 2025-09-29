@@ -15,3 +15,7 @@
 - Während der Umsetzung wurden die Textbausteine der Handlung direkt über eine Datenbank-Query eingepflegt
 - Diese Herangehensweise hat sich als sehr mühsam erwiesen
 - Für die Weiterentwicklung dieses Projekts in einem größeren Umfang sollte die Implementierung einer Client-Oberfläche zur Eingabe und Verknüpfung von Textbausteinen erwogen werden
+
+## Ermitteln des passenden Handlungsstrangs
+- Nach Erstellung eines Charakters wird der Handlungsstrang anhand einer festgesetzten Id ausgewählt
+- Um diese Auswahl über das Datenmodell abzubilden, könnte ein schwacher Entitätstyp hinzugefügt werden
