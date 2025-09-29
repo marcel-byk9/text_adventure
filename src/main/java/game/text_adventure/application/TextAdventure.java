@@ -1,7 +1,8 @@
 package game.text_adventure.application;
-import game.text_adventure.dto.Option;
-import game.text_adventure.dto.Player;
-import game.text_adventure.dto.Situation;
+import game.text_adventure.dto.*;
+import game.text_adventure.repository.PlayerBackgroundOptionRepository;
+import game.text_adventure.repository.PlayerClassOptionRepository;
+import game.text_adventure.repository.SituationRepository;
 import game.text_adventure.service.OptionService;
 import game.text_adventure.service.PlayerService;
 import game.text_adventure.service.SituationService;
@@ -49,7 +50,7 @@ public class TextAdventure {
     }
 
     private void showWelcomeScreen() {
-        System.out.println("WIP: Projekttitel\n\n");
+        System.out.println("Text Adventure\n\n"); //TODO WIP: Set Titel
         System.out.println("Ein text-basiertes Rollenspielabenteuer inspiriert vom Universum der Animationsserie 'Avatar: Der Herr der Elemente'\n");
         pressEnterToContinue();
     }
@@ -67,21 +68,21 @@ public class TextAdventure {
         System.out.println("Wie wirst du genannt?");
         String name = scanner.nextLine();
 
-        String playerClass = getPlayerClassInput();
+        PlayerClassOption playerClass = getPlayerClassInput();
 
-        String background = getBackgroundInput();
+        PlayerBackgroundOption background = getBackgroundInput();
 
-        UUID startingSituation = getStartingSituationId();
+
 
         // TODO remove after debugging
         System.out.println("Name: " + name);
-        System.out.println("PlayerClass: " + playerClass);
-        System.out.println("Background: " + background);
-        System.out.println("StartingSituation: " + startingSituation.toString());
+        System.out.println("PlayerClass: " + playerClass.getDescription());
+        System.out.println("Background: " + background.getDescription());
 
-        // TODO adapt to correct service implementation
-        //Player player = playerService.createNewPlayerRun(name, playerClass, background, startingSituation.toString());
-        //startStoryLoop(player);
+        Player player = playerService.createNewPlayerRun(name, playerClass.getId(), background.getId(), null);
+        Situation startingSituation = getStartingSituationId(player);
+        player.setStorySave(startingSituation.getId());
+        startStoryLoop(player);
     }
 
     private void showSaveGameMenu() {
@@ -172,7 +173,7 @@ public class TextAdventure {
             int choice = getValidChoiceInput(maybeOptions.size());
             Option selectedOption = maybeOptions.get(choice - 1);
 
-            Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(currentSituation.getId(), UUID.fromString(String.valueOf(selectedOption.getId())));
+            Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(UUID.fromString(String.valueOf(selectedOption.getId())));
             if (maybeNextSituation.isEmpty()) {
                 System.out.println("Fehler: Nächste Situation konnte nicht geladen werden.");
                 break;
@@ -202,35 +203,61 @@ public class TextAdventure {
         }
     }
 
-    private String getPlayerClassInput() {
+    private PlayerClassOption getPlayerClassInput() {
+        List<PlayerClassOption>  playerClassOptions = (new PlayerClassOptionRepository()).findAll();
+
+        int i = 0;
+        for(PlayerClassOption playerClassOption: playerClassOptions){
+            i++;
+            System.out.println(i + ") " + playerClassOption.getName());
+        }
+
         while (true) {
             System.out.print("Deine Wahl: ");
             String input = scanner.nextLine();
-            switch (input) {
-                case "1" -> { return "Wasserbändiger"; }
-                case "2" -> { return "Feuerbändiger"; }
-                case "3" -> { return "Erdbändiger"; }
-                default -> System.out.println("Ungültige Eingabe. Bitte wähle 1-3.");
+            try {
+                return playerClassOptions.get(Integer.parseInt(input) -1);
+            } catch (Exception e){
+                System.out.println("ERROR: Invalid Input");
             }
         }
     }
 
-    private String getBackgroundInput() {
+    private PlayerBackgroundOption getBackgroundInput() {
+        List<PlayerBackgroundOption>  playerBackgroundOptions = (new PlayerBackgroundOptionRepository()).findAll();
+
+        int i = 0;
+        for(PlayerBackgroundOption playerBackgroundOption: playerBackgroundOptions){
+            i++;
+            System.out.println(i + ") " + playerBackgroundOption.getName());
+        }
+
         while (true) {
             System.out.print("Deine Wahl: ");
             String input = scanner.nextLine();
-            switch (input) {
-                case "1" -> { return "Nomade"; }
-                case "2" -> { return "Soldat"; }
-                case "3" -> { return "Gelehrter"; }
-                default -> System.out.println("Ungültige Eingabe. Bitte wähle 1-3.");
+            try {
+               return playerBackgroundOptions.get(Integer.parseInt(input) -1);
+            } catch (Exception e){
+                System.out.println("ERROR: Invalid Input");
             }
         }
     }
 
-    private UUID getStartingSituationId() {
-        // TODO replace with logic
-        return UUID.fromString("00000000-0000-0000-0000-000000000001");
+    private Situation getStartingSituationId(Player player) {
+        Optional<PlayerClassOption> playerClassOption = (new PlayerClassOptionRepository()).findById(player.getPlayerClass());
+        Optional<PlayerBackgroundOption> playerBackgroundOption = (new PlayerBackgroundOptionRepository()).findById(player.getBackground());
+
+        if(playerClassOption.isPresent()){
+            String className = playerClassOption.get().getName();
+        }
+
+        if(playerBackgroundOption.isPresent()){
+            String backgroundName = playerBackgroundOption.get().getName();
+        }
+            //TODO: Am besten Link tabel erstellen und auserten
+            //TODO: Alternativ einfach hard coded swich
+        Optional<Situation> situation = (new SituationRepository()).findById(UUID.fromString("8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c"));
+        return situation.orElseGet(Situation::new);
     }
 
     private void displayOptions(List<Option> options) {
