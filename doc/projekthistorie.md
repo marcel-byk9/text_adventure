@@ -63,3 +63,12 @@
 
 ##### Martin
 - Weiterentwicklung der Logik in TextAdventure mithilfe und deren Anbindung an die Service-Klassen 
+-
+### 29.09.2025
+
+##### Gruppe
+- Besprechung des aktuellen Entwicklungsstandes sowie notwendiger Maßnahmen zum zusammenführen separater Git-Branches
+- Gemeinsamer Code-Review
+
+##### Martin
+- Dokumentieren möglicher zukünftiger Potenziale
