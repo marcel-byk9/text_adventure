@@ -45,7 +45,7 @@ public class PlayerRepository extends RepositoryBase {
                 """;
         try {
             PreparedStatement stmt = connection.prepareStatement(searchSql);
-            stmt.setString(1, player.getName());
+            stmt.setString(1, player.getId().toString());
             Optional<Player> optPlayer = PlayerMapper.map(stmt.executeQuery());
             if (optPlayer.isPresent()) {
                 stmt = connection.prepareStatement(updateSql);
