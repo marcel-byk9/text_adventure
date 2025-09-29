@@ -150,7 +150,7 @@ public class TextAdventure {
 
     private void startStoryLoop(Player player) {
         while (true) {
-            UUID currentId = UUID.fromString(player.getStorySave());
+            UUID currentId = player.getStorySave();
 
             Optional<Situation> maybeSituation = situationService.getSituationById(currentId);
             if (maybeSituation.isEmpty()) {
@@ -159,20 +159,18 @@ public class TextAdventure {
             }
             Situation currentSituation = maybeSituation.get();
 
-            Optional<List<Option>> maybeOptions = optionService.getSituationOptionsById(currentId);
-            if (maybeOptions.isEmpty() || maybeOptions.get().isEmpty()) {
+            List<Option> maybeOptions = optionService.getSituationOptionsById(currentId);
+            if (maybeOptions.isEmpty()) {
                 System.out.println("\n" + currentSituation.getDescription());
                 System.out.println("Keine Optionen verfügbar. Die Geschichte endet hier.");
                 break;
             }
 
-            List<Option> options = maybeOptions.get();
-
             System.out.println("\n" + currentSituation.getDescription());
-            displayOptions(options);
+            displayOptions(maybeOptions);
 
-            int choice = getValidChoiceInput(options.size());
-            Option selectedOption = options.get(choice - 1);
+            int choice = getValidChoiceInput(maybeOptions.size());
+            Option selectedOption = maybeOptions.get(choice - 1);
 
             Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(UUID.fromString(String.valueOf(selectedOption.getId())));
             if (maybeNextSituation.isEmpty()) {
@@ -183,7 +181,7 @@ public class TextAdventure {
             Situation nextSituation = maybeNextSituation.get();
 
 
-            player.setStorySave(nextSituation.getId().toString());
+            player.setStorySave(nextSituation.getId());
             playerService.savePlayer(player);
 
             if (Boolean.TRUE.equals(nextSituation.getIsEnding())) {
