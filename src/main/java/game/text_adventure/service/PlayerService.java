@@ -19,13 +19,13 @@ public class PlayerService {
         player.setStorySave(startingSituation);
         player.setIsActive(true);
         player.setSituationsCounter(0);
-        playerRepository.save(player);
+        this.savePlayer(player);
         return player;
     }
 
     public Player setPlayerActiveStatus(Player player, boolean active) {
         player.setIsActive(active);
-        playerRepository.save(player);
+        this.savePlayer(player);
         return player;
     }
 
@@ -38,7 +38,12 @@ public class PlayerService {
     }
 
     public void savePlayer(Player player) {
-        playerRepository.save(player);
+        Optional<Player> optPlayer = playerRepository.findById(player.getId());
+        if (optPlayer.isEmpty()) {
+            playerRepository.insert(player);
+        } else {
+            playerRepository.update(player);
+        }
     }
 
     public Optional<Player> loadPlayer(UUID playerId) {

@@ -41,16 +41,28 @@ public class PlayerRepository extends RepositoryBase {
         }
     }
 
-    public void save(Player player) {
-        String searchSql = """
-                SELECT * FROM Player
-                WHERE Id = ?;
-                """;
-        String insertSql = """
-                INSERT INTO Player(Name, Background, Class, Story_Save, IsActive, SituationsCounter, Id)
+    public void insert(Player player) {
+        String sql = """
+                INSERT INTO Player(Id, Name, Background, Class, Story_Save, IsActive, SituationsCounter)
                 VALUES (?, ?, ?, ?, ?, ?, ?);
                 """;
-        String updateSql = """
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, String.valueOf(player.getId()));
+            stmt.setString(2, player.getName());
+            stmt.setString(3, player.getBackground().toString());
+            stmt.setString(4, player.getPlayerClass().toString());
+            stmt.setString(5, player.getStorySave().toString());
+            stmt.setBoolean(6, player.getIsActive());
+            stmt.setInt(7, player.getSituationsCounter());
+            stmt.executeUpdate();
+        } catch (SQLException sqle) {
+            log.error(sqle.getMessage());
+        }
+    }
+
+    public void update(Player player) {
+        String sql = """
                 UPDATE Player
                 SET Name = ?,
                     Background = ?,
@@ -61,22 +73,15 @@ public class PlayerRepository extends RepositoryBase {
                 WHERE Id = ?;
                 """;
         try {
-            PreparedStatement stmt = connection.prepareStatement(searchSql);
-            stmt.setString(1, player.getId().toString());
-            Optional<Player> optPlayer = PlayerMapper.map(stmt.executeQuery());
-            if (optPlayer.isPresent()) {
-                stmt = connection.prepareStatement(updateSql);
-            } else {
-                stmt = connection.prepareStatement(insertSql);
-            }
+            PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, player.getName());
-            stmt.setString(2, String.valueOf(player.getBackground().toString()));
-            stmt.setString(3, String.valueOf(player.getPlayerClass().toString()));
-            stmt.setString(4, String.valueOf(player.getStorySave().toString()));
+            stmt.setString(2, player.getBackground().toString());
+            stmt.setString(3, player.getPlayerClass().toString());
+            stmt.setString(4, player.getStorySave().toString());
             stmt.setBoolean(5, player.getIsActive());
             stmt.setInt(6, player.getSituationsCounter());
             stmt.setString(7, String.valueOf(player.getId()));
-            stmt.executeQuery();
+            stmt.executeUpdate();
         } catch (SQLException sqle) {
             log.error(sqle.getMessage());
         }
