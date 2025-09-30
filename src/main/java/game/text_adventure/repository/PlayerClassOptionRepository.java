@@ -6,7 +6,9 @@ import game.text_adventure.mapper.PlayerBackgroundOptionMapper;
 import game.text_adventure.mapper.PlayerClassOptionMapper;
 import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -18,10 +20,13 @@ public class PlayerClassOptionRepository extends RepositoryBase{
         String sql = """
                 SELECT * FROM PlayerClassOption;
                 """;
-        try {
-            return PlayerClassOptionMapper.mapMultiple(connection.prepareStatement(sql).executeQuery());
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            return PlayerClassOptionMapper.mapMultiple(rs);
         } catch (SQLException sqle) {
-            log.error(sqle.getMessage());
+            log.error("Error fetching all PlayerClassOptions: {}", sqle.getMessage(), sqle);
             return List.of();
         }
     }
@@ -31,12 +36,16 @@ public class PlayerClassOptionRepository extends RepositoryBase{
             SELECT * FROM PlayerClassOption
             WHERE Id = ?;
             """;
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, id.toString());
-            return PlayerClassOptionMapper.map(stmt.executeQuery());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                return PlayerClassOptionMapper.map(rs);
+            }
         } catch (SQLException sqle) {
-            log.error(sqle.getMessage());
+            log.error("Error fetching PlayerClassOption by ID {}: {}", id, sqle.getMessage(), sqle);
             return Optional.empty();
         }
     }

@@ -70,17 +70,11 @@ public class TextAdventure {
 
         PlayerClassOption playerClass = getPlayerClassInput();
 
-        PlayerBackgroundOption background = getBackgroundInput();
+        PlayerBackgroundOption playerBackground = getBackgroundInput();
 
+        Situation startingSituation = getStartingSituationId(playerClass, playerBackground);
+        Player player = playerService.createNewPlayer(name, playerClass.getId(), playerBackground.getId(), startingSituation.getId());
 
-
-        // TODO remove after debugging
-        System.out.println("Name: " + name);
-        System.out.println("PlayerClass: " + playerClass.getDescription());
-        System.out.println("Background: " + background.getDescription());
-
-        Player player = playerService.createNewPlayerRun(name, playerClass.getId(), background.getId(), null);
-        Situation startingSituation = getStartingSituationId(player);
         player.setStorySave(startingSituation.getId());
         startStoryLoop(player);
     }
@@ -173,7 +167,7 @@ public class TextAdventure {
             int choice = getValidChoiceInput(maybeOptions.size());
             Option selectedOption = maybeOptions.get(choice - 1);
 
-            Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(UUID.fromString(String.valueOf(selectedOption.getId())));
+            Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(currentId, UUID.fromString(String.valueOf(selectedOption.getId())));
             if (maybeNextSituation.isEmpty()) {
                 System.out.println("Fehler: Nächste Situation konnte nicht geladen werden.");
                 break;
@@ -243,7 +237,8 @@ public class TextAdventure {
         }
     }
 
-    private Situation getStartingSituationId(Player player) {
+    private Situation getStartingSituationId(PlayerClassOption playerClassOption, PlayerBackgroundOption playerBackgroundOption) {
+        /*
         Optional<PlayerClassOption> playerClassOption = (new PlayerClassOptionRepository()).findById(player.getPlayerClass());
         Optional<PlayerBackgroundOption> playerBackgroundOption = (new PlayerBackgroundOptionRepository()).findById(player.getBackground());
 
@@ -254,6 +249,7 @@ public class TextAdventure {
         if(playerBackgroundOption.isPresent()){
             String backgroundName = playerBackgroundOption.get().getName();
         }
+         */
             //TODO: Am besten Link tabel erstellen und auserten
             //TODO: Alternativ einfach hard coded swich
         Optional<Situation> situation = (new SituationRepository()).findById(UUID.fromString("8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c"));
