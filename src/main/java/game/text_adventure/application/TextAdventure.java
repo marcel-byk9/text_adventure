@@ -103,7 +103,6 @@ public class TextAdventure {
             case "1" -> loadPlayer(activePlayers);
             case "2" -> deletePlayer(activePlayers);
             case "3" -> {
-                return;
             }
             default -> System.out.println("Ungültige Eingabe. Bitte wähle 1, 2 oder 3");
         }
@@ -181,6 +180,7 @@ public class TextAdventure {
 
             if (Boolean.TRUE.equals(nextSituation.getIsEnding())) {
                 System.out.println("\n" + nextSituation.getDescription());
+                playerService.setPlayerActiveStatus(player, false);
                 System.out.println("Abenteuer ist zu Ende.");
                 break;
             }
@@ -190,7 +190,6 @@ public class TextAdventure {
     private void pressEnterToContinue() {
         System.out.println("Drücke Enter um fortzufahren...");
         try {
-            System.in.read();
             scanner.nextLine();
         } catch (Exception ex) {
             log.error("Fehler beim Warten auf Eingabe:", ex);
