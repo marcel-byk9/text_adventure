@@ -199,10 +199,17 @@ public class TextAdventure {
     private PlayerClassOption getPlayerClassInput() {
         List<PlayerClassOption>  playerClassOptions = (new PlayerClassOptionRepository()).findAll();
 
+        // TODO get intro situation more gracefully
+        Optional<Situation> introSituation = situationService.getSituationById(
+                UUID.fromString("7c1d5a9b-2e3f-4b6d-8c9a-1f2e3a4b5c6d")
+        );
+
+        introSituation.ifPresent(situation -> System.out.println("\n" + situation.getDescription()));
+
         int i = 0;
         for(PlayerClassOption playerClassOption: playerClassOptions){
             i++;
-            System.out.println(i + ") " + playerClassOption.getName());
+            System.out.println(i + ") " + playerClassOption.getDescription());
         }
 
         while (true) {
@@ -218,6 +225,13 @@ public class TextAdventure {
 
     private PlayerBackgroundOption getBackgroundInput() {
         List<PlayerBackgroundOption>  playerBackgroundOptions = (new PlayerBackgroundOptionRepository()).findAll();
+
+        // TODO get intro situation more gracefully
+        Optional<Situation> introSituation = situationService.getSituationById(
+                UUID.fromString("2b3c4d5e-6f7a-489b-9c1d-2e3f4a5b6c7d")
+        );
+
+        introSituation.ifPresent(situation -> System.out.println("\n" + situation.getDescription()));
 
         int i = 0;
         for(PlayerBackgroundOption playerBackgroundOption: playerBackgroundOptions){
@@ -237,22 +251,16 @@ public class TextAdventure {
     }
 
     private Situation getStartingSituationId(PlayerClassOption playerClassOption, PlayerBackgroundOption playerBackgroundOption) {
-        /*
-        Optional<PlayerClassOption> playerClassOption = (new PlayerClassOptionRepository()).findById(player.getPlayerClass());
-        Optional<PlayerBackgroundOption> playerBackgroundOption = (new PlayerBackgroundOptionRepository()).findById(player.getBackground());
+        UUID classId = playerClassOption.getId();
+        UUID backgroundId = playerBackgroundOption.getId();
 
-        if(playerClassOption.isPresent()){
-            String className = playerClassOption.get().getName();
-        }
+        Optional<Situation> maybeSituation = situationService.getStartingSituationByClassAndBackground(classId, backgroundId);
 
-        if(playerBackgroundOption.isPresent()){
-            String backgroundName = playerBackgroundOption.get().getName();
-        }
-         */
-            //TODO: Am besten Link tabel erstellen und auserten
-            //TODO: Alternativ einfach hard coded swich
-        Optional<Situation> situation = (new SituationRepository()).findById(UUID.fromString("8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c"));
-        return situation.orElseGet(Situation::new);
+        return maybeSituation.orElseGet(() -> {
+            System.out.println("WARNUNG: Keine Start-Situation für diese Kombination gefunden. Standard wird geladen.");
+            return situationService.getSituationById(UUID.fromString("8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c"))
+                    .get();
+        });
     }
 
     private void displayOptions(List<Option> options) {
