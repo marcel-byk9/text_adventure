@@ -102,3 +102,13 @@
 
 - Bugfixing auf Datenbankebene
 - Testen des Ladens eines Charakters
+
+---
+
+### 30.09.2025
+
+##### Martin
+- Beheben von offenen Fehlern in der Anwendung
+- Implementieren von Logik zur Auswahl der Startsituation anhand der Charaktererstellung sowie Erweiterung des Datenmodells
+
+
