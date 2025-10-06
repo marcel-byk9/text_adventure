@@ -4,6 +4,7 @@ import game.text_adventure.dto.Situation;
 import game.text_adventure.mapper.SituationMapper;
 import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Optional;
@@ -16,8 +17,8 @@ public class SituationRepository extends RepositoryBase {
                 SELECT * FROM Situation
                 WHERE Id = ?;
                 """;
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, id.toString());
             return SituationMapper.map(stmt.executeQuery());
         } catch (SQLException sqle) {
@@ -36,8 +37,8 @@ public class SituationRepository extends RepositoryBase {
                 AND Option = ?
             );
             """;
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, situationId.toString());
             stmt.setString(2, optionId.toString());
             return SituationMapper.map(stmt.executeQuery());

@@ -10,13 +10,7 @@ import java.sql.SQLException;
 public abstract class RepositoryBase {
     private static final String DATABASE_PATH = "src/main/resources/text_adventure.db";
 
-    protected Connection connection;
-
-    public RepositoryBase() {
-        try {
-            this.connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_PATH);
-        } catch (SQLException sqle) {
-            log.error(sqle.getMessage());
-        }
+    protected Connection getConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:sqlite:" + DATABASE_PATH);
     }
 }

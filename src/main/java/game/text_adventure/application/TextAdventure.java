@@ -2,7 +2,6 @@ package game.text_adventure.application;
 import game.text_adventure.dto.*;
 import game.text_adventure.repository.PlayerBackgroundOptionRepository;
 import game.text_adventure.repository.PlayerClassOptionRepository;
-import game.text_adventure.repository.SituationRepository;
 import game.text_adventure.service.OptionService;
 import game.text_adventure.service.PlayerService;
 import game.text_adventure.service.SituationService;
@@ -70,17 +69,11 @@ public class TextAdventure {
 
         PlayerClassOption playerClass = getPlayerClassInput();
 
-        PlayerBackgroundOption background = getBackgroundInput();
+        PlayerBackgroundOption playerBackground = getBackgroundInput();
 
+        Situation startingSituation = getStartingSituationId(playerClass, playerBackground);
+        Player player = playerService.createNewPlayer(name, playerClass.getId(), playerBackground.getId(), startingSituation.getId());
 
-
-        // TODO remove after debugging
-        System.out.println("Name: " + name);
-        System.out.println("PlayerClass: " + playerClass.getDescription());
-        System.out.println("Background: " + background.getDescription());
-
-        Player player = playerService.createNewPlayerRun(name, playerClass.getId(), background.getId(), null);
-        Situation startingSituation = getStartingSituationId(player);
         player.setStorySave(startingSituation.getId());
         startStoryLoop(player);
     }
@@ -109,7 +102,6 @@ public class TextAdventure {
             case "1" -> loadPlayer(activePlayers);
             case "2" -> deletePlayer(activePlayers);
             case "3" -> {
-                return;
             }
             default -> System.out.println("Ungültige Eingabe. Bitte wähle 1, 2 oder 3");
         }
@@ -187,6 +179,7 @@ public class TextAdventure {
 
             if (Boolean.TRUE.equals(nextSituation.getIsEnding())) {
                 System.out.println("\n" + nextSituation.getDescription());
+                playerService.setPlayerActiveStatus(player, false);
                 System.out.println("Abenteuer ist zu Ende.");
                 break;
             }
@@ -196,7 +189,6 @@ public class TextAdventure {
     private void pressEnterToContinue() {
         System.out.println("Drücke Enter um fortzufahren...");
         try {
-            System.in.read();
             scanner.nextLine();
         } catch (Exception ex) {
             log.error("Fehler beim Warten auf Eingabe:", ex);
@@ -206,10 +198,17 @@ public class TextAdventure {
     private PlayerClassOption getPlayerClassInput() {
         List<PlayerClassOption>  playerClassOptions = (new PlayerClassOptionRepository()).findAll();
 
+        // TODO get intro situation more gracefully
+        Optional<Situation> introSituation = situationService.getSituationById(
+                UUID.fromString("7c1d5a9b-2e3f-4b6d-8c9a-1f2e3a4b5c6d")
+        );
+
+        introSituation.ifPresent(situation -> System.out.println("\n" + situation.getDescription()));
+
         int i = 0;
         for(PlayerClassOption playerClassOption: playerClassOptions){
             i++;
-            System.out.println(i + ") " + playerClassOption.getName());
+            System.out.println(i + ") " + playerClassOption.getDescription());
         }
 
         while (true) {
@@ -225,6 +224,13 @@ public class TextAdventure {
 
     private PlayerBackgroundOption getBackgroundInput() {
         List<PlayerBackgroundOption>  playerBackgroundOptions = (new PlayerBackgroundOptionRepository()).findAll();
+
+        // TODO get intro situation more gracefully
+        Optional<Situation> introSituation = situationService.getSituationById(
+                UUID.fromString("2b3c4d5e-6f7a-489b-9c1d-2e3f4a5b6c7d")
+        );
+
+        introSituation.ifPresent(situation -> System.out.println("\n" + situation.getDescription()));
 
         int i = 0;
         for(PlayerBackgroundOption playerBackgroundOption: playerBackgroundOptions){
@@ -243,21 +249,17 @@ public class TextAdventure {
         }
     }
 
-    private Situation getStartingSituationId(Player player) {
-        Optional<PlayerClassOption> playerClassOption = (new PlayerClassOptionRepository()).findById(player.getPlayerClass());
-        Optional<PlayerBackgroundOption> playerBackgroundOption = (new PlayerBackgroundOptionRepository()).findById(player.getBackground());
+    private Situation getStartingSituationId(PlayerClassOption playerClassOption, PlayerBackgroundOption playerBackgroundOption) {
+        UUID classId = playerClassOption.getId();
+        UUID backgroundId = playerBackgroundOption.getId();
 
-        if(playerClassOption.isPresent()){
-            String className = playerClassOption.get().getName();
-        }
+        Optional<Situation> maybeSituation = situationService.getStartingSituationByClassAndBackground(classId, backgroundId);
 
-        if(playerBackgroundOption.isPresent()){
-            String backgroundName = playerBackgroundOption.get().getName();
-        }
-            //TODO: Am besten Link tabel erstellen und auserten
-            //TODO: Alternativ einfach hard coded swich
-        Optional<Situation> situation = (new SituationRepository()).findById(UUID.fromString("8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c"));
-        return situation.orElseGet(Situation::new);
+        return maybeSituation.orElseGet(() -> {
+            System.out.println("WARNUNG: Keine Start-Situation für diese Kombination gefunden. Standard wird geladen.");
+            return situationService.getSituationById(UUID.fromString("8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c"))
+                    .get();
+        });
     }
 
     private void displayOptions(List<Option> options) {

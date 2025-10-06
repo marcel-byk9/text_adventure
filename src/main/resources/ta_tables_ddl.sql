@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS Situation;
 DROP TABLE IF EXISTS Option;
 DROP TABLE IF EXISTS PlayerBackgroundOption;
 DROP TABLE IF EXISTS PlayerClassOption;
+DROP TABLE IF EXISTS StartingSituation;
 
 CREATE TABLE IF NOT EXISTS PlayerClassOption(
     Id TEXT NOT NULL PRIMARY KEY,
@@ -49,4 +50,17 @@ CREATE TABLE IF NOT EXISTS Storytelling(
     CONSTRAINT FK_Next_Situation FOREIGN KEY (Next_Situation) REFERENCES Situation(Id),
 	CONSTRAINT FK_Situation FOREIGN KEY (Situation) REFERENCES Situation(Id),
 	CONSTRAINT FK_Option FOREIGN KEY (Option) REFERENCES Option(Id)
+);
+
+CREATE TABLE IF NOT EXISTS StartingSituation(
+    Id TEXT NOT NULL PRIMARY KEY,
+    ClassOptionId TEXT NOT NULL,
+    BackgroundOptionId TEXT NOT NULL,
+    SituationId TEXT NOT NULL,
+
+    CONSTRAINT FK_ClassOption FOREIGN KEY (ClassOptionId) REFERENCES PlayerClassOption(Id),
+    CONSTRAINT FK_BackgroundOption FOREIGN KEY (BackgroundOptionId) REFERENCES PlayerBackgroundOption(Id),
+    CONSTRAINT FK_SituationStart FOREIGN KEY (SituationId) REFERENCES Situation(Id),
+
+    CONSTRAINT Unique_Combination UNIQUE (ClassOptionId, BackgroundOptionId)
 );
