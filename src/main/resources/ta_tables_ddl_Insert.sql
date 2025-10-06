@@ -1,5 +1,4 @@
-INSERT INTO PlayerClassOption(Id, Name, Description) VALUES 
-('8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3','Klassenlos','noch keine Klasse'),
+INSERT INTO PlayerClassOption(Id, Name, Description) VALUES
 ('1c4b9f67-27b1-4e0d-9a0b-5a3e0f4d6c27','Feuerbändiger', 'Holzkohle der höchsten Qualität für die Schmiedefeuer herzustellen.'),
 ('e2a1c8da-bf4e-4b5e-9134-02f28a64d8e6','Wasserbändiger','das Wasser in Pflanzen beeinflussen zu können und besondere Heilkräuter zu züchten.'),
 ('74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92','Erdbändiger','Erze verschiedener Metalle zu finden und diese von Unreinheiten zu befreien.');
@@ -8,13 +7,14 @@ INSERT INTO PlayerBackgroundOption(Id, Name, Description) VALUES
 ('8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3', 'Akrobat', 'Akrobat bei einem wandernden Zirkus'),
 ('3b7c9e12-5f4b-4a4a-bd14-1b2d6a9f02c8', 'Stadtwache', 'Stadtwache, die bei einem Überfall am Knie verletzt wurde und den Dienst verlassen musste'),
 ('7b35d381-ec76-4d6b-8a00-bca9444c6797', 'Nationssoldat', 'Soldat in der Armee deiner Nation');
---('c12a0c71-2c8f-4e2d-9b43-2a5e5a6e7f45', 'Feuernationssoldat', 'Soldat in der Armee der Feuernation'),
---('b4e3f9d8-68a7-4e94-82b1-9a43f20b5f1c', 'Wasserstammkrieger', 'Kämpfer in der Armee des Wasserstamms'),
---('a19f3c62-58d1-41e7-9d2c-31d0c93a4b20', 'Erdkönigreichssoldat', 'Soldat in der Armee des Erdkönigreichs');
 
 INSERT INTO Situation(Id, Description, IsEnding) VALUES
 ('7c1d5a9b-2e3f-4b6d-8c9a-1f2e3a4b5c6d', 'Um dir deinen Lebensunterhalt zu verdienen, setzt du insgeheim deine Bändigungskräfte ein.
 Deine Fähigkeit über dein Element ermöglicht es dir...', false),
+('157acbf8-400e-4903-a030-25f9ecffc27d', 'Du bist noch nicht bereit, den Weg des Feuers zu gehen.', true),
+('8598d7a9-33c8-4920-ba87-f667c2bb046f', 'Du bist noch nicht bereit, den Weg des Wassers zu gehen.', true),
+('7d4e76e3-2725-4fb8-9a10-fa566042175b', 'Du bist noch nicht bereit, den Weg des Akrobaten zu gehen.', true),
+('24751736-a131-4839-8da6-b99fde8b8722', 'Du bist noch nicht bereit, den Weg des Soldaten zu gehen.', true),
 ('2b3c4d5e-6f7a-489b-9c1d-2e3f4a5b6c7d', 'In der Vergangenheit war dein Leben geprägt von großen Herausforderungen und Strapazen.
 Bevor du dich in einem kleinen Dorf nahe Omashu im Erdkönigreich wiedergefunden hast
 warst du...', false),
@@ -111,3 +111,24 @@ INSERT INTO Storytelling(Id, Situation, Option, Next_Situation) VALUES
 
 INSERT INTO Player(Id, Name, Background, Class, Story_Save, IsActive, SituationsCounter)
 VALUES ('b79f1b8d-ec2d-4419-aba9-24cd5efa2ff2', 'Test', '3b7c9e12-5f4b-4a4a-bd14-1b2d6a9f02c8', '74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92', '8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c', true, 2);
+
+INSERT INTO StartingSituation (Id, ClassOptionId, BackgroundOptionId, SituationId)
+VALUES
+    -- Firebending acrobat
+    ('058f01ab-7b23-44c2-b2c0-1fb732ae9b02', '1c4b9f67-27b1-4e0d-9a0b-5a3e0f4d6c27', '8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3', '157acbf8-400e-4903-a030-25f9ecffc27d'),
+    -- Firebending cityguard
+    ('2759cc89-08e6-44ef-bb9c-a371800d8c1e', '1c4b9f67-27b1-4e0d-9a0b-5a3e0f4d6c27', '3b7c9e12-5f4b-4a4a-bd14-1b2d6a9f02c8', '157acbf8-400e-4903-a030-25f9ecffc27d'),
+    -- Firebending soldier
+    ('cdb2b892-f7ad-4d44-b477-6fd0920f457b', '1c4b9f67-27b1-4e0d-9a0b-5a3e0f4d6c27', '7b35d381-ec76-4d6b-8a00-bca9444c6797', '157acbf8-400e-4903-a030-25f9ecffc27d'),
+    -- Waterbending acrobat
+    ('31e874dc-629b-48d7-a4e1-02657dd1ead0', 'e2a1c8da-bf4e-4b5e-9134-02f28a64d8e6', '8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3', '8598d7a9-33c8-4920-ba87-f667c2bb046f'),
+    -- Waterbending cityguard
+    ('c920ebc1-bc84-4f4e-9d63-7ce664e90fbe', 'e2a1c8da-bf4e-4b5e-9134-02f28a64d8e6', '3b7c9e12-5f4b-4a4a-bd14-1b2d6a9f02c8', '8598d7a9-33c8-4920-ba87-f667c2bb046f'),
+    -- Waterbending soldier
+    ('be1f5ed9-6716-458c-8035-4d8542fb9a71', 'e2a1c8da-bf4e-4b5e-9134-02f28a64d8e6', '7b35d381-ec76-4d6b-8a00-bca9444c6797', '8598d7a9-33c8-4920-ba87-f667c2bb046f'),
+    -- Earthbending acrobat
+    ('49cc35ae-48d2-4d99-a886-62e326acac1f', '74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92', '8f3d6f2e-7a5d-4c9a-9c52-6a01e1f89cb3', '7d4e76e3-2725-4fb8-9a10-fa566042175b'),
+    -- Earthbending cityguard
+    ('0d2102bc-25b4-45eb-8993-0a7262083323', '74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92', '3b7c9e12-5f4b-4a4a-bd14-1b2d6a9f02c8', '8a9b0c1d-2e3f-4d5a-9b6c-7d8e9f0a1b2c'),
+    -- Earthbending soldier
+    ('2a3c9c7e-4ba7-4c0c-985a-72a31bea36c7', '74d3d0ab-1922-4aef-82b7-5d5b9c5e0f92', '7b35d381-ec76-4d6b-8a00-bca9444c6797', '24751736-a131-4839-8da6-b99fde8b8722');

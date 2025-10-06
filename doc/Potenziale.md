@@ -19,3 +19,8 @@
 ## Ermitteln des passenden Handlungsstrangs
 - Nach Erstellung eines Charakters wird der Handlungsstrang anhand einer festgesetzten Id ausgewählt
 - Um diese Auswahl über das Datenmodell abzubilden, könnte ein schwacher Entitätstyp hinzugefügt werden
+
+### Anzeige erreichter und möglicher Enden
+- In der initialen Konzeptphase wurde die Anzeige der in der jeweiligen Installation erreichten Enden im Hauptmenü erwogen
+- Z. B. "Du hast 4 von 11 möglichen Enden erreicht."
+- Dieses Feature wurde aufgrund des zeitlichen Rahmens nicht in das Lastenheft aufgenommen
