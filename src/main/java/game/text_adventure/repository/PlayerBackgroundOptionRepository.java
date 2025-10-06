@@ -7,7 +7,9 @@ import game.text_adventure.mapper.PlayerMapper;
 import game.text_adventure.mapper.SituationMapper;
 import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +21,14 @@ public class PlayerBackgroundOptionRepository extends RepositoryBase {
         String sql = """
                 SELECT * FROM PlayerBackgroundOption;
                 """;
-        try {
-            return PlayerBackgroundOptionMapper.mapMultiple(connection.prepareStatement(sql).executeQuery());
-        } catch (SQLException sqle) {
-            log.error(sqle.getMessage());
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            return PlayerBackgroundOptionMapper.mapMultiple(rs);
+        } catch (SQLException ex) {
+            log.error("Error fetching all PlayerBackgroundOptions: {}", ex.getMessage(), ex);
             return List.of();
         }
     }
@@ -32,12 +38,16 @@ public class PlayerBackgroundOptionRepository extends RepositoryBase {
             SELECT * FROM PlayerBackgroundOption
             WHERE Id = ?;
             """;
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setString(1, id.toString());
-            return PlayerBackgroundOptionMapper.map(stmt.executeQuery());
-        } catch (SQLException sqle) {
-            log.error(sqle.getMessage());
+            try (ResultSet rs = stmt.executeQuery()) {
+                return PlayerBackgroundOptionMapper.map(rs);
+            }
+        } catch (SQLException ex) {
+            log.error("Error fetching PlayerBackgroundOption by ID {}: {}", id, ex.getMessage(), ex);
             return Optional.empty();
         }
     }
