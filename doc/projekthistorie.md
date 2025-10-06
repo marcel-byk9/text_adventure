@@ -29,6 +29,11 @@
 - Erstellen der initialen Projekthistorie
 - Skizzenhafte Konzeption eines Spielszenarios
 
+##### Marcel & Luca
+
+- Entwurf des Datenbankmodells
+- Schreiben von DDL und DML
+
 ---
 
 ### 15.09.2025
@@ -37,8 +42,12 @@
 - Erstellen der Textbausteine im Situation/Option-Format
 - Implementieren der Main- und TextAdventure Klassen
 
-##### Luca und Martin
+##### Luca & Martin
 - Abstimmen der Datenbankstruktur mit dem Story-Konzept
+
+##### Marcel & Jonas
+
+- Datenbankkommunikation: Anlegen Repository- und Service-Klassen
 
 ---
 
@@ -46,6 +55,10 @@
 
 ##### Martin
 - Weiterentwicklung der Logik in TextAdventure
+
+##### Marcel & Jonas
+
+- Datenbankkommunikation: Anlegen Repository- und Service-Klassen
 
 ---
 
@@ -64,6 +77,14 @@
 ##### Martin
 - Weiterentwicklung der Logik in TextAdventure mithilfe und deren Anbindung an die Service-Klassen
 
+##### Marcel
+
+- Datenbankkommunikation: Anlegen Repository- und Service-Klassen
+
+##### Jonas
+
+- Implementieren der anfänglichen Dialogauswahl
+
 ---
 
 ### 29.09.2025
@@ -77,4 +98,7 @@
 - Dokumentieren möglicher zukünftiger Potenziale
 - Anpassen der Insert-Statements unter Berücksichtigung von Charaktereditor und Spiel-Loop
 
+##### Marcel & Luca
 
+- Bugfixing auf Datenbankebene
+- Testen des Ladens eines Charakters
