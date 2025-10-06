@@ -173,7 +173,7 @@ public class TextAdventure {
             int choice = getValidChoiceInput(maybeOptions.size());
             Option selectedOption = maybeOptions.get(choice - 1);
 
-            Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(UUID.fromString(String.valueOf(selectedOption.getId())));
+            Optional<Situation> maybeNextSituation = optionService.getNextSituationForOption(currentSituation.getId(), UUID.fromString(String.valueOf(selectedOption.getId())));
             if (maybeNextSituation.isEmpty()) {
                 System.out.println("Fehler: Nächste Situation konnte nicht geladen werden.");
                 break;

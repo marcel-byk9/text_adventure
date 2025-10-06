@@ -1,8 +1,6 @@
 package game.text_adventure.repository;
 
-import game.text_adventure.dto.PlayerBackgroundOption;
 import game.text_adventure.dto.PlayerClassOption;
-import game.text_adventure.mapper.PlayerBackgroundOptionMapper;
 import game.text_adventure.mapper.PlayerClassOptionMapper;
 import lombok.extern.slf4j.Slf4j;
 

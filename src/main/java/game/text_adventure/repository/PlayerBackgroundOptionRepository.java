@@ -1,10 +1,7 @@
 package game.text_adventure.repository;
 
-import game.text_adventure.dto.Player;
 import game.text_adventure.dto.PlayerBackgroundOption;
 import game.text_adventure.mapper.PlayerBackgroundOptionMapper;
-import game.text_adventure.mapper.PlayerMapper;
-import game.text_adventure.mapper.SituationMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.PreparedStatement;
